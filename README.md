@@ -39,12 +39,12 @@ Install graphviz:
 *   **On Red Hat/Fedora/CentOS:**
     ```bash
     sudo yum install graphviz-devel
-    ```*   **On Windows:**
+    ```
+*   **On Windows:**
     1.  Download an installer from the official [Graphviz download page](https://graphviz.org/download/).
     2.  Run the installer.
     3.  **Crucially**, add the Graphviz `bin` directory to your system's PATH environment variable. The default location is usually `C:\Program Files\Graphviz\bin`.
-    ```
-
+    
 Install requirements:
 ```sh
 pip install -r requirements.txt
