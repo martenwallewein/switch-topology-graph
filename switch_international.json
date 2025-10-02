@@ -1,0 +1,221 @@
+{
+    "nodes": [
+        {
+            "id": "N113",
+            "label": "Equinix Z\u00fcrich",
+            "type": "internal"
+        },
+        {
+            "id": "N115",
+            "label": "Equinix Z\u00fcrich",
+            "type": "internal"
+        },
+        {
+            "id": "N116",
+            "label": "IWB Telehouse",
+            "type": "internal"
+        },
+        {
+            "id": "N122",
+            "label": "CERN",
+            "type": "internal"
+        },
+        {
+            "id": "cern",
+            "label": "cern",
+            "type": "external"
+        },
+        {
+            "id": "geant",
+            "label": "geant",
+            "type": "external"
+        },
+        {
+            "id": "interxion",
+            "label": "interxion",
+            "type": "external"
+        },
+        {
+            "id": "swissix",
+            "label": "swissix",
+            "type": "external"
+        },
+        {
+            "id": "lumen",
+            "label": "lumen",
+            "type": "external"
+        },
+        {
+            "id": "level3",
+            "label": "level3",
+            "type": "external"
+        },
+        {
+            "id": "belwue2",
+            "label": "belwue2",
+            "type": "external"
+        },
+        {
+            "id": "telia",
+            "label": "telia",
+            "type": "external"
+        },
+        {
+            "id": "decix",
+            "label": "decix",
+            "type": "external"
+        },
+        {
+            "id": "gttce",
+            "label": "gttce",
+            "type": "external"
+        },
+        {
+            "id": "amsix",
+            "label": "amsix",
+            "type": "external"
+        },
+        {
+            "id": "cixp",
+            "label": "cixp",
+            "type": "external"
+        },
+        {
+            "id": "gttzh",
+            "label": "gttzh",
+            "type": "external"
+        },
+        {
+            "id": "tix",
+            "label": "tix",
+            "type": "external"
+        },
+        {
+            "id": "cogent",
+            "label": "cogent",
+            "type": "external"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L123",
+            "from": "N122",
+            "to": "cern",
+            "traffic_in": "3.46Gbps",
+            "traffic_out": "1.95Gbps",
+            "link_capacity": "400G"
+        },
+        {
+            "id": "L124",
+            "from": "N122",
+            "to": "geant",
+            "traffic_in": "11.84Gbps",
+            "traffic_out": "9.99Gbps",
+            "link_capacity": "400G"
+        },
+        {
+            "id": "L125",
+            "from": "N115",
+            "to": "interxion",
+            "traffic_in": "54.15Gbps",
+            "traffic_out": "24.3Gbps",
+            "link_capacity": "200G"
+        },
+        {
+            "id": "L126",
+            "from": "N115",
+            "to": "swissix",
+            "traffic_in": "10.37Gbps",
+            "traffic_out": "15.97Gbps",
+            "link_capacity": "200G"
+        },
+        {
+            "id": "L127",
+            "from": "N116",
+            "to": "lumen",
+            "traffic_in": "904.49Mbps",
+            "traffic_out": "505.95Mbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L128",
+            "from": "N122",
+            "to": "level3",
+            "traffic_in": "960.58Mbps",
+            "traffic_out": "3.37Gbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L129",
+            "from": "N115",
+            "to": "belwue2",
+            "traffic_in": "490.76Mbps",
+            "traffic_out": "864.54Mbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L130",
+            "from": "N115",
+            "to": "telia",
+            "traffic_in": "3.98Gbps",
+            "traffic_out": "1.58Gbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L131",
+            "from": "N116",
+            "to": "decix",
+            "traffic_in": "25.61Gbps",
+            "traffic_out": "4.07Gbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L132",
+            "from": "N122",
+            "to": "gttce",
+            "traffic_in": "960.58Mbps",
+            "traffic_out": "3.37Gbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L133",
+            "from": "N122",
+            "to": "amsix",
+            "traffic_in": "3.02Gbps",
+            "traffic_out": "392.02Mbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L134",
+            "from": "N122",
+            "to": "cixp",
+            "traffic_in": "3.16Gbps",
+            "traffic_out": "2.34Gbps",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L135",
+            "from": "N115",
+            "to": "gttzh",
+            "traffic_in": "12.63Kbps",
+            "traffic_out": "565.44Mbps",
+            "link_capacity": "10G"
+        },
+        {
+            "id": "L136",
+            "from": "N115",
+            "to": "tix",
+            "traffic_in": "2.63Gbps",
+            "traffic_out": "1.3Gbps",
+            "link_capacity": "10G"
+        },
+        {
+            "id": "L137",
+            "from": "N116",
+            "to": "cogent",
+            "traffic_in": "1.21Gbps",
+            "traffic_out": "630.37Mbps",
+            "link_capacity": "10G"
+        }
+    ]
+}

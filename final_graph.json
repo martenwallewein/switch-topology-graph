@@ -1,0 +1,1772 @@
+{
+    "nodes": [
+        {
+            "id": "N105",
+            "label": "Interxion Glattbrugg",
+            "short_name": "IXG",
+            "type": "internal"
+        },
+        {
+            "id": "N106",
+            "label": "Dielsdorf Green Datacenter",
+            "short_name": "DGD",
+            "type": "internal"
+        },
+        {
+            "id": "N107",
+            "label": "SMN",
+            "short_name": "Clinique Valmont",
+            "type": "internal"
+        },
+        {
+            "id": "N108",
+            "label": "Empa St. Gallen",
+            "short_name": "SGE",
+            "type": "internal"
+        },
+        {
+            "id": "N109",
+            "label": "PHSG, Gossau",
+            "short_name": "GO",
+            "type": "internal"
+        },
+        {
+            "id": "N110",
+            "label": "Biel",
+            "short_name": "Biel",
+            "type": "internal"
+        },
+        {
+            "id": "N111",
+            "label": "Arth Goldau",
+            "short_name": "AG",
+            "type": "internal"
+        },
+        {
+            "id": "N112",
+            "label": "Schlieren Green Datacenter",
+            "short_name": "SGD",
+            "type": "internal"
+        },
+        {
+            "id": "N113",
+            "label": "Lupfig Green Datacenter",
+            "short_name": "LGD",
+            "type": "internal"
+        },
+        {
+            "id": "N114",
+            "label": "Swiss National Supercomputing Centre",
+            "short_name": "CSCS",
+            "type": "internal"
+        },
+        {
+            "id": "N115",
+            "label": "CERN - the European Organization for Nuclear Research",
+            "short_name": "CERN",
+            "type": "internal"
+        },
+        {
+            "id": "N116",
+            "label": "Universit\u00e4t Basel",
+            "short_name": "UNIBAS",
+            "type": "internal"
+        },
+        {
+            "id": "N117",
+            "label": "Eidgen\u00f6ssische Technische Hochschule Z\u00fcrich",
+            "short_name": "ETHZ",
+            "type": "internal"
+        },
+        {
+            "id": "N118",
+            "label": "TI-EDU - SUPSI",
+            "short_name": "SUPSI",
+            "type": "internal"
+        },
+        {
+            "id": "N119",
+            "label": "Universit\u00e4t Z\u00fcrich",
+            "short_name": "UZH",
+            "type": "internal"
+        },
+        {
+            "id": "N120",
+            "label": "Universit\u00e4t Bern",
+            "short_name": "UNIBE",
+            "type": "internal"
+        },
+        {
+            "id": "N121",
+            "label": "Universit\u00e9 de Lausanne",
+            "short_name": "UNIL",
+            "type": "internal"
+        },
+        {
+            "id": "N122",
+            "label": "Ecole polytechnique f\u00e9d\u00e9rale de Lausanne",
+            "short_name": "EPFL",
+            "type": "internal"
+        },
+        {
+            "id": "N123",
+            "label": "Universit\u00e9 de Neuch\u00e2tel",
+            "short_name": "UNINE",
+            "type": "internal"
+        },
+        {
+            "id": "N124",
+            "label": "Duebendorf",
+            "short_name": "DUE",
+            "type": "internal"
+        },
+        {
+            "id": "N125",
+            "label": "Bellinzona",
+            "short_name": "BZ",
+            "type": "internal"
+        },
+        {
+            "id": "N126",
+            "label": "Toni Areal ZH",
+            "short_name": "TO",
+            "type": "internal"
+        },
+        {
+            "id": "N127",
+            "label": "HEP-VD",
+            "short_name": "HEP-VD",
+            "type": "internal"
+        },
+        {
+            "id": "N128",
+            "label": "CHUV",
+            "short_name": "CHUV",
+            "type": "internal"
+        },
+        {
+            "id": "N129",
+            "label": "CHUV",
+            "short_name": "CHUV",
+            "type": "internal"
+        },
+        {
+            "id": "N130",
+            "label": "Locarno - Muralto",
+            "short_name": "Locarno",
+            "type": "internal"
+        },
+        {
+            "id": "N131",
+            "label": "R\u00e9seau des Biblioth\u00e8ques de la Suisse occidentale",
+            "short_name": "RERO",
+            "type": "internal"
+        },
+        {
+            "id": "N132",
+            "label": "Spiez",
+            "short_name": "SP",
+            "type": "internal"
+        },
+        {
+            "id": "N133",
+            "label": "EHB Lugano",
+            "short_name": "EHB",
+            "type": "internal"
+        },
+        {
+            "id": "N134",
+            "label": "EHB Zollikofen",
+            "short_name": "EHB",
+            "type": "internal"
+        },
+        {
+            "id": "N135",
+            "label": "Sargans",
+            "short_name": "SA",
+            "type": "internal"
+        },
+        {
+            "id": "N136",
+            "label": "Interkantonale Hochschule f\u00fcr Heilp\u00e4dagogik Z\u00fcrich",
+            "short_name": "HfH",
+            "type": "internal"
+        },
+        {
+            "id": "N137",
+            "label": "Kreuzlingen",
+            "short_name": "Kreuzlingen",
+            "type": "internal"
+        },
+        {
+            "id": "N138",
+            "label": "Equinix",
+            "short_name": "Equinix",
+            "type": "internal"
+        },
+        {
+            "id": "N139",
+            "label": "Nationale Alarmzentrale",
+            "short_name": "NAZ",
+            "type": "internal"
+        },
+        {
+            "id": "N140",
+            "label": "ETH Board",
+            "short_name": "ETHB",
+            "type": "internal"
+        },
+        {
+            "id": "N141",
+            "label": "Schweizerischer Nationalfonds",
+            "short_name": "SNF",
+            "type": "internal"
+        },
+        {
+            "id": "N142",
+            "label": "IMD - International Institute for Management Development",
+            "short_name": "IMD",
+            "type": "internal"
+        },
+        {
+            "id": "N144",
+            "label": "MeteoSchweiz",
+            "short_name": "MeteoSchweiz",
+            "type": "internal"
+        },
+        {
+            "id": "N145",
+            "label": "Hochschule Luzern",
+            "short_name": "HSLU",
+            "type": "internal"
+        },
+        {
+            "id": "N146",
+            "label": "Hochalpine Forschungsstiftung Jungfraujoch-Gornergrat",
+            "short_name": "HSFJG",
+            "type": "internal"
+        },
+        {
+            "id": "N147",
+            "label": "OST Campus Rapperswil-Jona",
+            "short_name": "OST-RJ",
+            "type": "internal"
+        },
+        {
+            "id": "N148",
+            "label": "Bahnhofgeb\u00e4ude Visp",
+            "short_name": "SBB Visp",
+            "type": "internal"
+        },
+        {
+            "id": "N149",
+            "label": "Les Roches-Gruy\u00e8re",
+            "short_name": "LRG",
+            "type": "internal"
+        },
+        {
+            "id": "N150",
+            "label": "EPFL Valais Wallis",
+            "short_name": "Sion",
+            "type": "internal"
+        },
+        {
+            "id": "N151",
+            "label": "Les Roches-Gruy\u00e8re",
+            "short_name": "LRG",
+            "type": "internal"
+        },
+        {
+            "id": "N152",
+            "label": "Les Roches-Gruy\u00e8re",
+            "short_name": "LRG",
+            "type": "internal"
+        },
+        {
+            "id": "N153",
+            "label": "Universit\u00e9 de Fribourg/Universit\u00e4t Freiburg",
+            "short_name": "UNIFR",
+            "type": "internal"
+        },
+        {
+            "id": "N154",
+            "label": "Fachhochschule Graub\u00fcnden",
+            "short_name": "FHGR Chur",
+            "type": "internal"
+        },
+        {
+            "id": "N155",
+            "label": "Institut f\u00fcr Schnee- und Lawinenforschung SLF",
+            "short_name": "SLF",
+            "type": "internal"
+        },
+        {
+            "id": "N156",
+            "label": "OST Campus Buchs",
+            "short_name": "OST-BU",
+            "type": "internal"
+        },
+        {
+            "id": "N157",
+            "label": "Universit\u00e4t Liechtenstein",
+            "short_name": "UNILI",
+            "type": "internal"
+        },
+        {
+            "id": "N158",
+            "label": "Universit\u00e4t St.Gallen",
+            "short_name": "UNISG",
+            "type": "internal"
+        },
+        {
+            "id": "N159",
+            "label": "OST Campus St.Gallen",
+            "short_name": "OST-SG",
+            "type": "internal"
+        },
+        {
+            "id": "N160",
+            "label": "RZ Campus Frauenfeld",
+            "short_name": "Frauenfeld",
+            "type": "internal"
+        },
+        {
+            "id": "N161",
+            "label": "Eidgen\u00f6ssische Forschungsanstalt f\u00fcr Wald, Schnee und Landschaft",
+            "short_name": "WSL",
+            "type": "internal"
+        },
+        {
+            "id": "N162",
+            "label": "IBM Rueschlikon",
+            "short_name": "IBM",
+            "type": "internal"
+        },
+        {
+            "id": "N163",
+            "label": "H\u00f6here Fachschule f\u00fcr Technik HF des Kantons Solothurn",
+            "short_name": "HFT-SO",
+            "type": "internal"
+        },
+        {
+            "id": "N164",
+            "label": "Paul Scherrer Institut",
+            "short_name": "PSI",
+            "type": "internal"
+        },
+        {
+            "id": "N165",
+            "label": "Eidgen\u00f6ssisches Nuklearsicherheitsinspektorat",
+            "short_name": "ENSI",
+            "type": "internal"
+        },
+        {
+            "id": "N166",
+            "label": "Haute Ecole Sp\u00e9cialis\u00e9e de Suisse occidentale",
+            "short_name": "HES-SO Headoffice",
+            "type": "internal"
+        },
+        {
+            "id": "N167",
+            "label": "Av. de Provence 6, Lausanne",
+            "short_name": "HES-SO//Master",
+            "type": "internal"
+        },
+        {
+            "id": "N169",
+            "label": "Ecole h\u00f4teli\u00e8re de Lausanne",
+            "short_name": "EHL",
+            "type": "internal"
+        },
+        {
+            "id": "N171",
+            "label": "Universit\u00e9 de Gen\u00e8ve",
+            "short_name": "UNIGE",
+            "type": "internal"
+        },
+        {
+            "id": "g\u00e9ant",
+            "label": "G\u00c9ANT",
+            "type": "external"
+        },
+        {
+            "id": "colt",
+            "label": "Colt",
+            "type": "external"
+        },
+        {
+            "id": "arelion",
+            "label": "Arelion",
+            "type": "external"
+        },
+        {
+            "id": "cogent",
+            "label": "Cogent",
+            "type": "external"
+        },
+        {
+            "id": "gtt",
+            "label": "GTT",
+            "type": "external"
+        },
+        {
+            "id": "ams-ix",
+            "label": "AMS-IX",
+            "type": "external"
+        },
+        {
+            "id": "cixp",
+            "label": "CIXP",
+            "type": "external"
+        },
+        {
+            "id": "cernlight",
+            "label": "CERNLight",
+            "type": "external"
+        },
+        {
+            "id": "de-cix",
+            "label": "DE-CIX",
+            "type": "external"
+        },
+        {
+            "id": "equinix",
+            "label": "Equinix",
+            "type": "external"
+        },
+        {
+            "id": "swissix",
+            "label": "SwissIX",
+            "type": "external"
+        },
+        {
+            "id": "cern",
+            "label": "CERN",
+            "type": "external"
+        },
+        {
+            "id": "belw\u00fc",
+            "label": "BelW\u00fc",
+            "type": "external"
+        },
+        {
+            "id": "google",
+            "label": "Google",
+            "type": "external"
+        },
+        {
+            "id": "microsoft",
+            "label": "Microsoft",
+            "type": "external"
+        },
+        {
+            "id": "amazon",
+            "label": "Amazon",
+            "type": "external"
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "type": "external"
+        },
+        {
+            "id": "akamai",
+            "label": "Akamai",
+            "type": "external"
+        },
+        {
+            "id": "swisscom",
+            "label": "Swisscom",
+            "type": "external"
+        },
+        {
+            "id": "init7",
+            "label": "Init7",
+            "type": "external"
+        },
+        {
+            "id": "liberty global",
+            "label": "Liberty Global",
+            "type": "external"
+        },
+        {
+            "id": "interxion",
+            "label": "interxion",
+            "type": "external"
+        },
+        {
+            "id": "lumen",
+            "label": "lumen",
+            "type": "external"
+        },
+        {
+            "id": "level3",
+            "label": "level3",
+            "type": "external"
+        },
+        {
+            "id": "telia",
+            "label": "telia",
+            "type": "external"
+        },
+        {
+            "id": "tix",
+            "label": "tix",
+            "type": "external"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L172",
+            "from": "N117",
+            "to": "N115",
+            "traffic_in": "5.85Gbps",
+            "traffic_out": "8.14Gbps",
+            "link_capacity": "400G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L173",
+            "from": "N115",
+            "to": "N114",
+            "traffic_in": "1.95Gbps",
+            "traffic_out": "3.5Gbps",
+            "link_capacity": "400G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L174",
+            "from": "N117",
+            "to": "N114",
+            "traffic_in": "14.93Gbps",
+            "traffic_out": "23.09Gbps",
+            "link_capacity": "400G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L175",
+            "from": "N119",
+            "to": "N114",
+            "traffic_in": "3.84Gbps",
+            "traffic_out": "11.27Gbps",
+            "link_capacity": "400G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L176",
+            "from": "N117",
+            "to": "N138",
+            "traffic_in": "56.14Gbps",
+            "traffic_out": "23.78Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L177",
+            "from": "N120",
+            "to": "N115",
+            "traffic_in": "8.03Gbps",
+            "traffic_out": "14.13Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L178",
+            "from": "N114",
+            "to": "N125",
+            "traffic_in": "84.73Mbps",
+            "traffic_out": "109.21Mbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L179",
+            "from": "N116",
+            "to": "N120",
+            "traffic_in": "8.64Gbps",
+            "traffic_out": "30.61Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L180",
+            "from": "N116",
+            "to": "N164",
+            "traffic_in": "5.26Gbps",
+            "traffic_out": "5.12Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L181",
+            "from": "N116",
+            "to": "N117",
+            "traffic_in": "22.4Gbps",
+            "traffic_out": "56.6Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L182",
+            "from": "N111",
+            "to": "N145",
+            "traffic_in": "3.08Gbps",
+            "traffic_out": "1.39Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L183",
+            "from": "N158",
+            "to": "N160",
+            "traffic_in": "4.23Gbps",
+            "traffic_out": "4.2Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L185",
+            "from": "N148",
+            "to": "N114",
+            "traffic_in": "2.64Gbps",
+            "traffic_out": "5.54Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L186",
+            "from": "N120",
+            "to": "N148",
+            "traffic_in": "185.43Mbps",
+            "traffic_out": "1.85Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L187",
+            "from": "N150",
+            "to": "N148",
+            "traffic_in": "4.46Gbps",
+            "traffic_out": "6.1Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L188",
+            "from": "N117",
+            "to": "N112",
+            "traffic_in": "57.69Mbps",
+            "traffic_out": "285.16Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L189",
+            "from": "N112",
+            "to": "N113",
+            "traffic_in": "371.4Mbps",
+            "traffic_out": "218.89Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L190",
+            "from": "N113",
+            "to": "N164",
+            "traffic_in": "3.98Gbps",
+            "traffic_out": "515.79Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L191",
+            "from": "N171",
+            "to": "N115",
+            "traffic_in": "5.63Gbps",
+            "traffic_out": "4.11Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L192",
+            "from": "N122",
+            "to": "N150",
+            "traffic_in": "1.8Gbps",
+            "traffic_out": "6.17Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L193",
+            "from": "N119",
+            "to": "N160",
+            "traffic_in": "4.13Gbps",
+            "traffic_out": "5.31Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L195",
+            "from": "N153",
+            "to": "N121",
+            "traffic_in": "4.53Gbps",
+            "traffic_out": "15.59Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L196",
+            "from": "N115",
+            "to": "N121",
+            "traffic_in": "5.44Gbps",
+            "traffic_out": "4.88Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L197",
+            "from": "N121",
+            "to": "N110",
+            "traffic_in": "11.63Gbps",
+            "traffic_out": "9.96Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L198",
+            "from": "N120",
+            "to": "N153",
+            "traffic_in": "4.33Gbps",
+            "traffic_out": "22.96Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L200",
+            "from": "N122",
+            "to": "N121",
+            "traffic_in": "20.75Gbps",
+            "traffic_out": "13.01Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L201",
+            "from": "N122",
+            "to": "N171",
+            "traffic_in": "3.92Gbps",
+            "traffic_out": "7.24Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L202",
+            "from": "N138",
+            "to": "N119",
+            "traffic_in": "4.9Gbps",
+            "traffic_out": "1.62Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L205",
+            "from": "N111",
+            "to": "N125",
+            "traffic_in": "101.25Mbps",
+            "traffic_out": "98.89Mbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L206",
+            "from": "N111",
+            "to": "N117",
+            "traffic_in": "5.38Gbps",
+            "traffic_out": "2.08Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L207",
+            "from": "N105",
+            "to": "N119",
+            "traffic_in": "24.55Gbps",
+            "traffic_out": "54.84Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L208",
+            "from": "N105",
+            "to": "N106",
+            "traffic_in": "998.88Kbps",
+            "traffic_out": "3.03Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L209",
+            "from": "N164",
+            "to": "N106",
+            "traffic_in": "27.26Mbps",
+            "traffic_out": "3.88Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L210",
+            "from": "N117",
+            "to": "N124",
+            "traffic_in": "2.36Gbps",
+            "traffic_out": "1.04Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L212",
+            "from": "N114",
+            "to": "N158",
+            "traffic_in": "221.45Mbps",
+            "traffic_out": "25.72Mbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L219",
+            "from": "N110",
+            "to": "N166",
+            "traffic_in": "51.63Kbps",
+            "traffic_out": "2.27Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L220",
+            "from": "N141",
+            "to": "N120",
+            "traffic_in": "9.35Mbps",
+            "traffic_out": "7.93Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L221",
+            "from": "N164",
+            "to": "N119",
+            "traffic_in": "8.55Gbps",
+            "traffic_out": "2.72Gbps",
+            "link_capacity": "200G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L222",
+            "from": "N119",
+            "to": "N117",
+            "traffic_in": "13.82Gbps",
+            "traffic_out": "103.37Gbps",
+            "link_capacity": "400G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L223",
+            "from": "N109",
+            "to": "N108",
+            "traffic_in": "23.12Kbps",
+            "traffic_out": "13.21Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L226",
+            "from": "N123",
+            "to": "N120",
+            "traffic_in": "456.8Mbps",
+            "traffic_out": "36.95Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L228",
+            "from": "N140",
+            "to": "N120",
+            "traffic_in": "6.23Mbps",
+            "traffic_out": "2.56Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L230",
+            "from": "N135",
+            "to": "N111",
+            "traffic_in": "2.03Gbps",
+            "traffic_out": "635.46Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L232",
+            "from": "N145",
+            "to": "N132",
+            "traffic_in": "8.28Mbps",
+            "traffic_out": "1.2Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L233",
+            "from": "N119",
+            "to": "N136",
+            "traffic_in": "40.89Mbps",
+            "traffic_out": "92.56Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L234",
+            "from": "N118",
+            "to": "N114",
+            "traffic_in": "462.06Mbps",
+            "traffic_out": "105.49Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L237",
+            "from": "N117",
+            "to": "N161",
+            "traffic_in": "92.9Mbps",
+            "traffic_out": "227.52Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L238",
+            "from": "N121",
+            "to": "N127",
+            "traffic_in": "336.2Mbps",
+            "traffic_out": "1.42Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L239",
+            "from": "N122",
+            "to": "N129",
+            "traffic_in": "989.71Mbps",
+            "traffic_out": "2.96Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L242",
+            "from": "N123",
+            "to": "N121",
+            "traffic_in": "702.15Mbps",
+            "traffic_out": "377.4Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L243",
+            "from": "N142",
+            "to": "N129",
+            "traffic_in": "2.96Kbps",
+            "traffic_out": "2.32Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L244",
+            "from": "N129",
+            "to": "N142",
+            "traffic_in": "2.14Kbps",
+            "traffic_out": "3.32Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L245",
+            "from": "N127",
+            "to": "N142",
+            "traffic_in": "14.69Kbps",
+            "traffic_out": "11.18Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L246",
+            "from": "N121",
+            "to": "N129",
+            "traffic_in": "70.04Mbps",
+            "traffic_out": "477.99Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L247",
+            "from": "N155",
+            "to": "N154",
+            "traffic_in": "196.19Mbps",
+            "traffic_out": "63.11Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L248",
+            "from": "N131",
+            "to": "N150",
+            "traffic_in": "16.6Mbps",
+            "traffic_out": "1.26Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L249",
+            "from": "N134",
+            "to": "N120",
+            "traffic_in": "208.42Mbps",
+            "traffic_out": "597.86Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L251",
+            "from": "N114",
+            "to": "N155",
+            "traffic_in": "60.18Kbps",
+            "traffic_out": "194.75Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L253",
+            "from": "N120",
+            "to": "N140",
+            "traffic_in": "6.48Kbps",
+            "traffic_out": "4.84Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L254",
+            "from": "N120",
+            "to": "N132",
+            "traffic_in": "2.21Kbps",
+            "traffic_out": "3.32Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L255",
+            "from": "N166",
+            "to": "N116",
+            "traffic_in": "2Mbps",
+            "traffic_out": "1.37Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L256",
+            "from": "N135",
+            "to": "N147",
+            "traffic_in": "326.46Mbps",
+            "traffic_out": "1.06Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L257",
+            "from": "N167",
+            "to": "N121",
+            "traffic_in": "98.85Mbps",
+            "traffic_out": "22.58Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L258",
+            "from": "N163",
+            "to": "N119",
+            "traffic_in": "40.92Kbps",
+            "traffic_out": "12.81Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L259",
+            "from": "N165",
+            "to": "N119",
+            "traffic_in": "201.62Mbps",
+            "traffic_out": "45.01Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L260",
+            "from": "N169",
+            "to": "N167",
+            "traffic_in": "2.3Kbps",
+            "traffic_out": "2.78Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L261",
+            "from": "N122",
+            "to": "N169",
+            "traffic_in": "252.88Mbps",
+            "traffic_out": "1.8Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L262",
+            "from": "N152",
+            "to": "N148",
+            "traffic_in": "1.78Mbps",
+            "traffic_out": "5.61Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L263",
+            "from": "N150",
+            "to": "N152",
+            "traffic_in": "46.92Mbps",
+            "traffic_out": "508.97Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L264",
+            "from": "N121",
+            "to": "N107",
+            "traffic_in": "218.94Mbps",
+            "traffic_out": "25.36Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L265",
+            "from": "N122",
+            "to": "N131",
+            "traffic_in": "39.07Kbps",
+            "traffic_out": "53.95Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L266",
+            "from": "N132",
+            "to": "N148",
+            "traffic_in": "8.42Mbps",
+            "traffic_out": "1.21Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L268",
+            "from": "N165",
+            "to": "N110",
+            "traffic_in": "2.94Mbps",
+            "traffic_out": "80.91Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L269",
+            "from": "N165",
+            "to": "N113",
+            "traffic_in": "66.68Mbps",
+            "traffic_out": "332.3Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L271",
+            "from": "N155",
+            "to": "N135",
+            "traffic_in": "974.1Mbps",
+            "traffic_out": "314.04Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L272",
+            "from": "N123",
+            "to": "N110",
+            "traffic_in": "3.63Gbps",
+            "traffic_out": "1.43Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L273",
+            "from": "N157",
+            "to": "N154",
+            "traffic_in": "3.6Kbps",
+            "traffic_out": "4.43Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L274",
+            "from": "N147",
+            "to": "N111",
+            "traffic_in": "228Mbps",
+            "traffic_out": "104.37Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L275",
+            "from": "N162",
+            "to": "N161",
+            "traffic_in": "2.41Kbps",
+            "traffic_out": "2.44Kbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L276",
+            "from": "N138",
+            "to": "N162",
+            "traffic_in": "66.6Mbps",
+            "traffic_out": "2.02Gbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L279",
+            "from": "N139",
+            "to": "N117",
+            "traffic_in": "2.65Mbps",
+            "traffic_out": "1.03Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L281",
+            "from": "N110",
+            "to": "N163",
+            "traffic_in": "5.07Mbps",
+            "traffic_out": "16.6Mbps",
+            "link_capacity": "10G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L282",
+            "from": "N146",
+            "to": "N132",
+            "traffic_in": "605.04Kbps",
+            "traffic_out": "2.63Mbps",
+            "link_capacity": "1000M",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L283",
+            "from": "N145",
+            "to": "N146",
+            "traffic_in": "3.73Kbps",
+            "traffic_out": "2.83Kbps",
+            "link_capacity": "1000M",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L284",
+            "from": "N110",
+            "to": "N119",
+            "traffic_in": "17.14Gbps",
+            "traffic_out": "11.93Gbps",
+            "link_capacity": "100G",
+            "edge_type": "internal"
+        },
+        {
+            "id": "L1",
+            "from": "N115",
+            "to": "g\u00e9ant",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L2",
+            "from": "N115",
+            "to": "g\u00e9ant",
+            "capacity": "200 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L3",
+            "from": "N115",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L4",
+            "from": "N116",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "edge_type": "external"
+        },
+        {
+            "id": "L5",
+            "from": "N138",
+            "to": "arelion",
+            "capacity": "100 Gb/s",
+            "location": "Equinix Zurich",
+            "edge_type": "external"
+        },
+        {
+            "id": "L6",
+            "from": "N116",
+            "to": "cogent",
+            "capacity": "10 Gb/s",
+            "location": "IWB Basel",
+            "edge_type": "external"
+        },
+        {
+            "id": "L7",
+            "from": "N115",
+            "to": "gtt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L8",
+            "from": "N117",
+            "to": "gtt",
+            "capacity": "10 Gb/s",
+            "location": "Digital Realty",
+            "edge_type": "external"
+        },
+        {
+            "id": "L9",
+            "from": "N115",
+            "to": "ams-ix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L9_HUB_2",
+            "from": "N117",
+            "to": "ams-ix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L10",
+            "from": "N115",
+            "to": "cixp",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L10_HUB_2",
+            "from": "N117",
+            "to": "cixp",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L11",
+            "from": "N115",
+            "to": "cernlight",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L11_HUB_2",
+            "from": "N117",
+            "to": "cernlight",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L12",
+            "from": "N115",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L12_HUB_2",
+            "from": "N117",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L13",
+            "from": "N115",
+            "to": "equinix",
+            "capacity": "10 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L13_HUB_2",
+            "from": "N117",
+            "to": "equinix",
+            "capacity": "10 Gb/s",
+            "location": "homepage",
+            "edge_type": "external"
+        },
+        {
+            "id": "L14",
+            "from": "N116",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "edge_type": "external"
+        },
+        {
+            "id": "L15",
+            "from": "N117",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external"
+        },
+        {
+            "id": "L16",
+            "from": "N115",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L17",
+            "from": "N115",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L18",
+            "from": "N115",
+            "to": "belw\u00fc",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L18_HUB_2",
+            "from": "N117",
+            "to": "belw\u00fc",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L19",
+            "from": "N117",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external"
+        },
+        {
+            "id": "L20",
+            "from": "N105",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Glattbrugg",
+            "edge_type": "external"
+        },
+        {
+            "id": "L21",
+            "from": "N115",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L21_HUB_2",
+            "from": "N117",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L22",
+            "from": "N115",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L22_HUB_2",
+            "from": "N117",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L23",
+            "from": "N115",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L23_HUB_2",
+            "from": "N117",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L24",
+            "from": "N115",
+            "to": "amazon",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L24_HUB_2",
+            "from": "N117",
+            "to": "amazon",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L25",
+            "from": "N117",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "edge_type": "external"
+        },
+        {
+            "id": "L26",
+            "from": "N117",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "edge_type": "external"
+        },
+        {
+            "id": "L27",
+            "from": "N115",
+            "to": "akamai",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L27_HUB_2",
+            "from": "N117",
+            "to": "akamai",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L28",
+            "from": "N117",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external"
+        },
+        {
+            "id": "L29",
+            "from": "N115",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L30",
+            "from": "N115",
+            "to": "init7",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L30_HUB_2",
+            "from": "N117",
+            "to": "init7",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external"
+        },
+        {
+            "id": "L31",
+            "from": "N117",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external"
+        },
+        {
+            "id": "L32",
+            "from": "N115",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Geneva",
+            "edge_type": "external"
+        },
+        {
+            "id": "L123",
+            "from": "N115",
+            "to": "cern",
+            "traffic_in": "3.46Gbps",
+            "traffic_out": "1.95Gbps",
+            "link_capacity": "400G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L124",
+            "from": "N115",
+            "to": "g\u00e9ant",
+            "traffic_in": "11.84Gbps",
+            "traffic_out": "9.99Gbps",
+            "link_capacity": "400G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L125",
+            "from": "N138",
+            "to": "interxion",
+            "traffic_in": "54.15Gbps",
+            "traffic_out": "24.3Gbps",
+            "link_capacity": "200G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L126",
+            "from": "N138",
+            "to": "swissix",
+            "traffic_in": "10.37Gbps",
+            "traffic_out": "15.97Gbps",
+            "link_capacity": "200G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L127",
+            "from": "N116",
+            "to": "lumen",
+            "traffic_in": "904.49Mbps",
+            "traffic_out": "505.95Mbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L128",
+            "from": "N115",
+            "to": "level3",
+            "traffic_in": "960.58Mbps",
+            "traffic_out": "3.37Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L129",
+            "from": "N138",
+            "to": "belw\u00fc",
+            "traffic_in": "490.76Mbps",
+            "traffic_out": "864.54Mbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L130",
+            "from": "N138",
+            "to": "telia",
+            "traffic_in": "3.98Gbps",
+            "traffic_out": "1.58Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L131",
+            "from": "N116",
+            "to": "de-cix",
+            "traffic_in": "25.61Gbps",
+            "traffic_out": "4.07Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L132",
+            "from": "N115",
+            "to": "gtt",
+            "traffic_in": "960.58Mbps",
+            "traffic_out": "3.37Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L133",
+            "from": "N115",
+            "to": "ams-ix",
+            "traffic_in": "3.02Gbps",
+            "traffic_out": "392.02Mbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L134",
+            "from": "N115",
+            "to": "cixp",
+            "traffic_in": "3.16Gbps",
+            "traffic_out": "2.34Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L135",
+            "from": "N138",
+            "to": "gtt",
+            "traffic_in": "12.63Kbps",
+            "traffic_out": "565.44Mbps",
+            "link_capacity": "10G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L136",
+            "from": "N138",
+            "to": "tix",
+            "traffic_in": "2.63Gbps",
+            "traffic_out": "1.3Gbps",
+            "link_capacity": "10G",
+            "edge_type": "external"
+        },
+        {
+            "id": "L137",
+            "from": "N116",
+            "to": "cogent",
+            "traffic_in": "1.21Gbps",
+            "traffic_out": "630.37Mbps",
+            "link_capacity": "10G",
+            "edge_type": "external"
+        }
+    ]
+}

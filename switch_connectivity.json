@@ -1,0 +1,340 @@
+{
+    "nodes": [
+        {
+            "id": "switch",
+            "label": "SWITCH",
+            "type": "internal"
+        },
+        {
+            "id": "g\u00e9ant",
+            "label": "G\u00c9ANT",
+            "type": "external"
+        },
+        {
+            "id": "colt",
+            "label": "Colt",
+            "type": "external"
+        },
+        {
+            "id": "arelion",
+            "label": "Arelion",
+            "type": "external"
+        },
+        {
+            "id": "cogent",
+            "label": "Cogent",
+            "type": "external"
+        },
+        {
+            "id": "gtt",
+            "label": "GTT",
+            "type": "external"
+        },
+        {
+            "id": "ams-ix",
+            "label": "AMS-IX",
+            "type": "external"
+        },
+        {
+            "id": "cixp",
+            "label": "CIXP",
+            "type": "external"
+        },
+        {
+            "id": "cernlight",
+            "label": "CERNLight",
+            "type": "external"
+        },
+        {
+            "id": "de-cix",
+            "label": "DE-CIX",
+            "type": "external"
+        },
+        {
+            "id": "equinix",
+            "label": "Equinix",
+            "type": "external"
+        },
+        {
+            "id": "swissix",
+            "label": "SwissIX",
+            "type": "external"
+        },
+        {
+            "id": "cern",
+            "label": "CERN",
+            "type": "external"
+        },
+        {
+            "id": "belw\u00fc",
+            "label": "BelW\u00fc",
+            "type": "external"
+        },
+        {
+            "id": "google",
+            "label": "Google",
+            "type": "external"
+        },
+        {
+            "id": "microsoft",
+            "label": "Microsoft",
+            "type": "external"
+        },
+        {
+            "id": "amazon",
+            "label": "Amazon",
+            "type": "external"
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "type": "external"
+        },
+        {
+            "id": "akamai",
+            "label": "Akamai",
+            "type": "external"
+        },
+        {
+            "id": "swisscom",
+            "label": "Swisscom",
+            "type": "external"
+        },
+        {
+            "id": "init7",
+            "label": "Init7",
+            "type": "external"
+        },
+        {
+            "id": "liberty global",
+            "label": "Liberty Global",
+            "type": "external"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L1",
+            "from": "switch",
+            "to": "g\u00e9ant",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva"
+        },
+        {
+            "id": "L2",
+            "from": "switch",
+            "to": "g\u00e9ant",
+            "capacity": "200 Gb/s",
+            "location": "2x Geneva"
+        },
+        {
+            "id": "L3",
+            "from": "switch",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva"
+        },
+        {
+            "id": "L4",
+            "from": "switch",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "Basel"
+        },
+        {
+            "id": "L5",
+            "from": "switch",
+            "to": "arelion",
+            "capacity": "100 Gb/s",
+            "location": "Equinix Zurich"
+        },
+        {
+            "id": "L6",
+            "from": "switch",
+            "to": "cogent",
+            "capacity": "10 Gb/s",
+            "location": "IWB Basel"
+        },
+        {
+            "id": "L7",
+            "from": "switch",
+            "to": "gtt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva"
+        },
+        {
+            "id": "L8",
+            "from": "switch",
+            "to": "gtt",
+            "capacity": "10 Gb/s",
+            "location": "Digital Realty"
+        },
+        {
+            "id": "L9",
+            "from": "switch",
+            "to": "ams-ix",
+            "capacity": "100 Gb/s",
+            "location": "homepage"
+        },
+        {
+            "id": "L10",
+            "from": "switch",
+            "to": "cixp",
+            "capacity": "100 Gb/s",
+            "location": "homepage"
+        },
+        {
+            "id": "L11",
+            "from": "switch",
+            "to": "cernlight",
+            "capacity": "100 Gb/s",
+            "location": "homepage"
+        },
+        {
+            "id": "L12",
+            "from": "switch",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "location": "homepage"
+        },
+        {
+            "id": "L13",
+            "from": "switch",
+            "to": "equinix",
+            "capacity": "10 Gb/s",
+            "location": "homepage"
+        },
+        {
+            "id": "L14",
+            "from": "switch",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Basel"
+        },
+        {
+            "id": "L15",
+            "from": "switch",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Zurich"
+        },
+        {
+            "id": "L16",
+            "from": "switch",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva"
+        },
+        {
+            "id": "L17",
+            "from": "switch",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva"
+        },
+        {
+            "id": "L18",
+            "from": "switch",
+            "to": "belw\u00fc",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L19",
+            "from": "switch",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Zurich"
+        },
+        {
+            "id": "L20",
+            "from": "switch",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Glattbrugg"
+        },
+        {
+            "id": "L21",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L22",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L23",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L24",
+            "from": "switch",
+            "to": "amazon",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L25",
+            "from": "switch",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg"
+        },
+        {
+            "id": "L26",
+            "from": "switch",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg"
+        },
+        {
+            "id": "L27",
+            "from": "switch",
+            "to": "akamai",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L28",
+            "from": "switch",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Zurich"
+        },
+        {
+            "id": "L29",
+            "from": "switch",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Geneva"
+        },
+        {
+            "id": "L30",
+            "from": "switch",
+            "to": "init7",
+            "capacity": "100 Gb/s",
+            "location": "N/A"
+        },
+        {
+            "id": "L31",
+            "from": "switch",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Zurich"
+        },
+        {
+            "id": "L32",
+            "from": "switch",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Geneva"
+        }
+    ]
+}
