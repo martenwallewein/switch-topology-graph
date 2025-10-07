@@ -1,0 +1,118 @@
+{
+    "isp_optimal": {
+        "scenario_name": "ISP Optimal (Cost LP)",
+        "lp_status": "Optimal",
+        "total_cost": 250.0,
+        "traffic_allocation": {
+            "h1_p_h1_e2_to_D_Service": 50.0,
+            "h1_p_h1_e3_to_D_Service": 50.0
+        },
+        "performance_analysis": {
+            "egress_utilization": {
+                "e1_slow_transit": {
+                    "traffic": 0.0,
+                    "capacity": 100,
+                    "utilization_percent": 0.0
+                },
+                "e2_fast_peer": {
+                    "traffic": 50.0,
+                    "capacity": 50,
+                    "utilization_percent": 100.0
+                },
+                "e3_ok_peer": {
+                    "traffic": 50.0,
+                    "capacity": 100,
+                    "utilization_percent": 50.0
+                }
+            }
+        }
+    },
+    "isp_pessimal": {
+        "scenario_name": "ISP Pessimal (Cost LP)",
+        "lp_status": "Optimal",
+        "total_cost": 1000.0,
+        "traffic_allocation": {
+            "h1_p_h1_e1_to_D_Service": 100.0
+        },
+        "performance_analysis": {
+            "egress_utilization": {
+                "e1_slow_transit": {
+                    "traffic": 100.0,
+                    "capacity": 100,
+                    "utilization_percent": 100.0
+                },
+                "e2_fast_peer": {
+                    "traffic": 0.0,
+                    "capacity": 50,
+                    "utilization_percent": 0.0
+                },
+                "e3_ok_peer": {
+                    "traffic": 0.0,
+                    "capacity": 100,
+                    "utilization_percent": 0.0
+                }
+            }
+        }
+    },
+    "thundering_herd": {
+        "scenario_name": "End-Host Selfish (Thundering Herd)",
+        "total_cost": 100.0,
+        "total_sent_traffic": 50.0,
+        "total_unsent_traffic": 50.0,
+        "traffic_allocation": {
+            "h1_p_h1_e2_to_D_Service": 50.0
+        },
+        "performance_analysis": {
+            "egress_utilization": {
+                "e1_slow_transit": {
+                    "traffic": 0.0,
+                    "capacity": 100,
+                    "utilization_percent": 0.0
+                },
+                "e2_fast_peer": {
+                    "traffic": 50.0,
+                    "capacity": 50,
+                    "utilization_percent": 100.0
+                },
+                "e3_ok_peer": {
+                    "traffic": 0.0,
+                    "capacity": 100,
+                    "utilization_percent": 0.0
+                }
+            }
+        }
+    },
+    "fair_share": {
+        "scenario_name": "End-Host Cooperative (Fair Share)",
+        "total_cost": 500.0,
+        "total_sent_traffic": 100.0,
+        "total_unsent_traffic": -0.0,
+        "traffic_allocation": {
+            "h1_p_h1_e1_to_D_Service": 16.666666666666668,
+            "h1_p_h1_e2_to_D_Service": 16.666666666666668,
+            "h1_p_h1_e3_to_D_Service": 16.666666666666668,
+            "h2_p_h2_e1_to_D_Service": 16.666666666666668,
+            "h2_p_h2_e2_to_D_Service": 16.666666666666668,
+            "h2_p_h2_e3_to_D_Service": 16.666666666666668
+        },
+        "performance_analysis": {
+            "egress_utilization": {
+                "e1_slow_transit": {
+                    "traffic": 33.33,
+                    "capacity": 100,
+                    "utilization_percent": 33.33
+                },
+                "e2_fast_peer": {
+                    "traffic": 33.33,
+                    "capacity": 50,
+                    "utilization_percent": 66.67
+                },
+                "e3_ok_peer": {
+                    "traffic": 33.33,
+                    "capacity": 100,
+                    "utilization_percent": 33.33
+                }
+            }
+        }
+    }
+}

@@ -19,6 +19,7 @@ for file in switch_connectivity.json switch_international.json switch_swiss.json
 
     basename=$(basename $file .json)
     mv "$file" "data/$basename/$TICKS.json"
-
-    # $MC cp --quiet --attr "X-Amz-Meta-Mtime=$TICKS" "$file" "$BUCKET/$basename/$TICKS.json" > /dev/null
+    echo "Stored $file as data/$basename/$TICKS.json"
 done
+
+echo "Fetching metrics done."

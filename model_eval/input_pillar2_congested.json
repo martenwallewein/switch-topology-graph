@@ -1,0 +1,67 @@
+{
+    "endhosts": [
+        "h1",
+        "h2"
+    ],
+    "egress_interfaces": [
+        "e1_slow_transit",
+        "e2_fast_peer",
+        "e3_ok_peer"
+    ],
+    "destinations": [
+        "D_Service"
+    ],
+    "paths_per_endhost": {
+        "h1": [
+            "p_h1_e1",
+            "p_h1_e2",
+            "p_h1_e3"
+        ],
+        "h2": [
+            "p_h2_e1",
+            "p_h2_e2",
+            "p_h2_e3"
+        ]
+    },
+    "path_to_egress_mapping": {
+        "p_h1_e1": "e1_slow_transit",
+        "p_h1_e2": "e2_fast_peer",
+        "p_h1_e3": "e3_ok_peer",
+        "p_h2_e1": "e1_slow_transit",
+        "p_h2_e2": "e2_fast_peer",
+        "p_h2_e3": "e3_ok_peer"
+    },
+    "egress_to_destination_reachability": {
+        "e1_slow_transit": [
+            "D_Service"
+        ],
+        "e2_fast_peer": [
+            "D_Service"
+        ],
+        "e3_ok_peer": [
+            "D_Service"
+        ]
+    },
+    "endhost_uplinks": {
+        "h1": 100,
+        "h2": 100
+    },
+    "egress_capacities": {
+        "e1_slow_transit": 100,
+        "e2_fast_peer": 50,
+        "e3_ok_peer": 100
+    },
+    "egress_costs": {
+        "e1_slow_transit": 10,
+        "e2_fast_peer": 2,
+        "e3_ok_peer": 3
+    },
+    "egress_latencies": {
+        "e1_slow_transit": 60,
+        "e2_fast_peer": 100,
+        "e3_ok_peer": 20
+    },
+    "traffic_per_destination": {
+        "D_Service": 100
+    }
+}
