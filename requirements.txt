@@ -1,4 +1,4 @@
 pygraphviz
 networkx
 requests
-beautifulsoup
+beautifulsoup4
