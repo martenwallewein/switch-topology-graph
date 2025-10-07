@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e 
 TICKS=$(date "+%s")
+mkdir -p /home/marten/switch-topology-graph/data/switch_connectivity
+mkdir -p /home/marten/switch-topology-graph/data/switch_international
+mkdir -p /home/marten/switch-topology-graph/data/switch_swiss
 
 cd /home/marten/switch-topology-graph
 source venv/bin/activate
