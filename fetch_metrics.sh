@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e 
 TICKS=$(date "+%s")
 
 cd /home/marten/switch-topology-graph
