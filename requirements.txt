@@ -3,3 +3,4 @@ networkx
 requests
 beautifulsoup4
 pulp
+pandas
