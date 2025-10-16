@@ -1,1 +1,7 @@
 venv/
+switch_eval/peering_transit_factor_balanced/results/
+switch_eval/peering_transit_factor_balanced/scenarios/
+switch_eval/peering_transit_factor_high/results/
+switch_eval/peering_transit_factor_high/scenarios/
+switch_eval/peering_transit_factor_low/results/
+switch_eval/peering_transit_factor_low/scenarios/
