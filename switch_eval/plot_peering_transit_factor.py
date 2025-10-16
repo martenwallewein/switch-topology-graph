@@ -58,17 +58,17 @@ def analyze_and_plot_final_comparison():
     """
     # --- 1. Configuration: Add a 'linestyle' key for each scenario ---
     scenarios = {
-        "Balanced Peering/Transit": {
+        "Switch Traffic Data (Balanced Peering/Transit)": {
             "path": "peering_transit_factor_balanced/results",
             "color": "green",
             "linestyle": "solid"  # Solid line for the balanced case
         },
-        "High Peering / Low Transit": {
+        "Hypothetical: High Peering / Low Transit": {
             "path": "peering_transit_factor_high/results",
             "color": "dodgerblue",
             "linestyle": "dashed" # Dashed line for this case
         },
-        "Low Peering / High Transit": {
+        "Hypothetical: Low Peering / High Transit": {
             "path": "peering_transit_factor_low/results",
             "color": "darkorange",
             "linestyle": "dashed" # Dashed line for this case
