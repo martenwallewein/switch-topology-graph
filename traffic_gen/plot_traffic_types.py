@@ -21,12 +21,12 @@ def aggregate_traffic_by_type(csv_file_path):
         'gttzh',
         'level3',
         'lumen',
-        'telia'
+        'telia',
+        'geant',
     ]
 
     PEERING_PROVIDERS = [
         'cern',
-        'geant',
         'interxion',
         'swissix',
         'amsix',

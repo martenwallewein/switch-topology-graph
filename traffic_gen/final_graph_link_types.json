@@ -388,7 +388,7 @@
             "id": "g\u00e9ant",
             "label": "G\u00c9ANT",
             "type": "external",
-            "classification": "peering"
+            "classification": "transit"
         },
         {
             "id": "colt",
@@ -1314,7 +1314,7 @@
             "capacity": "400 Gb/s",
             "location": "2x Geneva",
             "edge_type": "external",
-            "link_type": "peering"
+            "link_type": "transit"
         },
         {
             "id": "L2",
@@ -1323,7 +1323,7 @@
             "capacity": "200 Gb/s",
             "location": "2x Geneva",
             "edge_type": "external",
-            "link_type": "peering"
+            "link_type": "transit"
         },
         {
             "id": "L3",
@@ -1721,7 +1721,7 @@
             "traffic_out": "9.99Gbps",
             "link_capacity": "400G",
             "edge_type": "external",
-            "link_type": "peering"
+            "link_type": "transit"
         },
         {
             "id": "L125",

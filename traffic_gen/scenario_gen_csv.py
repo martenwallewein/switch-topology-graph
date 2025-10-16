@@ -23,13 +23,14 @@ def parse_capacity(capacity_str):
     else:
         return float(capacity_str)
 
-def generate_traffic_scenario(graph_data, traffic_df):
+def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.0):
     """
     Generates a realistic traffic scenario based on graph data and a CSV with traffic information.
 
     Args:
         graph_data (dict): The graph data in the specified format.
         traffic_df (pd.DataFrame): A pandas DataFrame containing the traffic data from the CSV.
+        traffic_increase_factor (float): A factor by which to increase the traffic loaded from the CSV.
 
     Returns:
         dict: The generated traffic scenario in the specified format.
@@ -52,6 +53,10 @@ def generate_traffic_scenario(graph_data, traffic_df):
     traffic_df.set_index('to', inplace=True)
     traffic_per_destination = traffic_df['traffic_out_gbps'].to_dict()
     destinations = list(traffic_per_destination.keys())
+    
+    # --- MODIFIED: Increase traffic by the specified factor ---
+    for destination, traffic in traffic_per_destination.items():
+        traffic_per_destination[destination] = traffic * traffic_increase_factor
 
     # --- NEW: Define egress reachability based on link type ---
     # This map helps handle minor naming differences between the graph and the CSV (e.g., "ams-ix" vs "amsix")
@@ -123,6 +128,9 @@ def main():
     parser.add_argument("graph_file", help="Path to the graph JSON file.")
     parser.add_argument("traffic_csv_file", help="Path to the traffic data CSV file.")
     parser.add_argument("-o", "--output_file", help="Path to the output JSON file.", default="traffic_scenario.json")
+    # --- NEW: Added the traffic_increase_factor argument ---
+    parser.add_argument("-t", "--traffic_increase_factor", type=float, default=1.0, help="Factor by which to increase the traffic loaded from the CSV.")
+
 
     args = parser.parse_args()
 
@@ -138,7 +146,8 @@ def main():
         return
 
     # Generate the traffic scenario
-    traffic_scenario = generate_traffic_scenario(graph_data, traffic_df)
+    # --- MODIFIED: Pass the new argument to the function ---
+    traffic_scenario = generate_traffic_scenario(graph_data, traffic_df, args.traffic_increase_factor)
 
     # Write the output to a file
     with open(args.output_file, 'w') as f:
