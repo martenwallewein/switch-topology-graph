@@ -1,0 +1,290 @@
+[
+    {
+        "step": 0,
+        "subgraph_size": 2,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "GEANT",
+            "SWITCH_64"
+        ]
+    },
+    {
+        "step": 1,
+        "subgraph_size": 4,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich"
+        ]
+    },
+    {
+        "step": 2,
+        "subgraph_size": 5,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "KISTI_SG"
+        ]
+    },
+    {
+        "step": 3,
+        "subgraph_size": 6,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "GEANT",
+            "SEC",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "KISTI_SG"
+        ]
+    },
+    {
+        "step": 4,
+        "subgraph_size": 7,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "GEANT",
+            "SEC",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "KISTI_CHG",
+            "KISTI_SG"
+        ]
+    },
+    {
+        "step": 5,
+        "subgraph_size": 10,
+        "average_paths_per_node_pair": 1.0,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "FABRIC",
+            "CCDCoE",
+            "KISTI_SG",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SEC",
+            "KISTI_CHG",
+            "UVa"
+        ]
+    },
+    {
+        "step": 6,
+        "subgraph_size": 11,
+        "average_paths_per_node_pair": 1.7454545454545454,
+        "nodes_in_subgraph": [
+            "SWITCH_71",
+            "FABRIC",
+            "CCDCoE",
+            "KISTI_SG",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SEC",
+            "UVa",
+            "KISTI_CHG",
+            "KISTI_DJ"
+        ]
+    },
+    {
+        "step": 7,
+        "subgraph_size": 14,
+        "average_paths_per_node_pair": 1.7582417582417582,
+        "nodes_in_subgraph": [
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "Univ_of_Korea",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 8,
+        "subgraph_size": 15,
+        "average_paths_per_node_pair": 5.6,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "Univ_of_Korea",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 9,
+        "subgraph_size": 19,
+        "average_paths_per_node_pair": 5.590643274853801,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "Princeton",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "SIDN_Labs",
+            "Demokritos",
+            "Cybexer",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "Univ_of_Korea",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 10,
+        "subgraph_size": 20,
+        "average_paths_per_node_pair": 5.568421052631579,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "Princeton",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "SIDN_Labs",
+            "Demokritos",
+            "Cybexer",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "KISTI_HK",
+            "Univ_of_Korea",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 11,
+        "subgraph_size": 24,
+        "average_paths_per_node_pair": 6.478260869565218,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "Princeton",
+            "RNP",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "SIDN_Labs",
+            "Demokritos",
+            "Cybexer",
+            "WACREN",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "KISTI_HK",
+            "Univ_of_Korea",
+            "CityUHK",
+            "KAUST",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 12,
+        "subgraph_size": 25,
+        "average_paths_per_node_pair": 21.59,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "Princeton",
+            "RNP",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "SIDN_Labs",
+            "Demokritos",
+            "KISTI_AMS",
+            "Cybexer",
+            "WACREN",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "KISTI_HK",
+            "Univ_of_Korea",
+            "CityUHK",
+            "KAUST",
+            "NUS",
+            "SEC"
+        ]
+    },
+    {
+        "step": 13,
+        "subgraph_size": 28,
+        "average_paths_per_node_pair": 25.833333333333332,
+        "nodes_in_subgraph": [
+            "KISTI_STL",
+            "KISTI_CHG",
+            "FABRIC",
+            "UVa",
+            "Princeton",
+            "RNP",
+            "UFPR",
+            "UFMS",
+            "GEANT",
+            "SWITCH_64",
+            "ETH_Zurich",
+            "SWITCH_71",
+            "CCDCoE",
+            "CWI",
+            "SIDN_Labs",
+            "Demokritos",
+            "KISTI_AMS",
+            "OVGU",
+            "Cybexer",
+            "WACREN",
+            "KISTI_DJ",
+            "KISTI_SG",
+            "KISTI_HK",
+            "Univ_of_Korea",
+            "CityUHK",
+            "KAUST",
+            "NUS",
+            "SEC"
+        ]
+    }
+]

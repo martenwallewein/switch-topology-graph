@@ -1,0 +1,191 @@
+{
+    "2": {
+        "subgraph_size": 2,
+        "average_paths_per_node_pair": 0.918918918918919,
+        "connected_subgraphs_processed": 37,
+        "disconnected_subgraphs_skipped": 341,
+        "combinations_sampled": 378
+    },
+    "3": {
+        "subgraph_size": 3,
+        "average_paths_per_node_pair": 1.0387596899224807,
+        "connected_subgraphs_processed": 43,
+        "disconnected_subgraphs_skipped": 957,
+        "combinations_sampled": 1000
+    },
+    "4": {
+        "subgraph_size": 4,
+        "average_paths_per_node_pair": 1.1790123456790123,
+        "connected_subgraphs_processed": 27,
+        "disconnected_subgraphs_skipped": 973,
+        "combinations_sampled": 1000
+    },
+    "5": {
+        "subgraph_size": 5,
+        "average_paths_per_node_pair": 1.3592592592592592,
+        "connected_subgraphs_processed": 27,
+        "disconnected_subgraphs_skipped": 973,
+        "combinations_sampled": 1000
+    },
+    "6": {
+        "subgraph_size": 6,
+        "average_paths_per_node_pair": 1.3310344827586207,
+        "connected_subgraphs_processed": 29,
+        "disconnected_subgraphs_skipped": 971,
+        "combinations_sampled": 1000
+    },
+    "7": {
+        "subgraph_size": 7,
+        "average_paths_per_node_pair": 1.4404761904761902,
+        "connected_subgraphs_processed": 16,
+        "disconnected_subgraphs_skipped": 984,
+        "combinations_sampled": 1000
+    },
+    "8": {
+        "subgraph_size": 8,
+        "average_paths_per_node_pair": 2.962585034013605,
+        "connected_subgraphs_processed": 21,
+        "disconnected_subgraphs_skipped": 979,
+        "combinations_sampled": 1000
+    },
+    "9": {
+        "subgraph_size": 9,
+        "average_paths_per_node_pair": 2.2337962962962963,
+        "connected_subgraphs_processed": 12,
+        "disconnected_subgraphs_skipped": 988,
+        "combinations_sampled": 1000
+    },
+    "10": {
+        "subgraph_size": 10,
+        "average_paths_per_node_pair": 2.4366013071895427,
+        "connected_subgraphs_processed": 17,
+        "disconnected_subgraphs_skipped": 983,
+        "combinations_sampled": 1000
+    },
+    "11": {
+        "subgraph_size": 11,
+        "average_paths_per_node_pair": 3.704040404040404,
+        "connected_subgraphs_processed": 18,
+        "disconnected_subgraphs_skipped": 982,
+        "combinations_sampled": 1000
+    },
+    "12": {
+        "subgraph_size": 12,
+        "average_paths_per_node_pair": 4.745059288537551,
+        "connected_subgraphs_processed": 23,
+        "disconnected_subgraphs_skipped": 977,
+        "combinations_sampled": 1000
+    },
+    "13": {
+        "subgraph_size": 13,
+        "average_paths_per_node_pair": 3.2289377289377295,
+        "connected_subgraphs_processed": 21,
+        "disconnected_subgraphs_skipped": 979,
+        "combinations_sampled": 1000
+    },
+    "14": {
+        "subgraph_size": 14,
+        "average_paths_per_node_pair": 4.907142857142857,
+        "connected_subgraphs_processed": 20,
+        "disconnected_subgraphs_skipped": 980,
+        "combinations_sampled": 1000
+    },
+    "15": {
+        "subgraph_size": 15,
+        "average_paths_per_node_pair": 6.685057471264367,
+        "connected_subgraphs_processed": 29,
+        "disconnected_subgraphs_skipped": 971,
+        "combinations_sampled": 1000
+    },
+    "16": {
+        "subgraph_size": 16,
+        "average_paths_per_node_pair": 6.582142857142856,
+        "connected_subgraphs_processed": 35,
+        "disconnected_subgraphs_skipped": 965,
+        "combinations_sampled": 1000
+    },
+    "17": {
+        "subgraph_size": 17,
+        "average_paths_per_node_pair": 6.506497948016417,
+        "connected_subgraphs_processed": 43,
+        "disconnected_subgraphs_skipped": 957,
+        "combinations_sampled": 1000
+    },
+    "18": {
+        "subgraph_size": 18,
+        "average_paths_per_node_pair": 10.945072900955255,
+        "connected_subgraphs_processed": 52,
+        "disconnected_subgraphs_skipped": 948,
+        "combinations_sampled": 1000
+    },
+    "19": {
+        "subgraph_size": 19,
+        "average_paths_per_node_pair": 11.170187373194887,
+        "connected_subgraphs_processed": 49,
+        "disconnected_subgraphs_skipped": 951,
+        "combinations_sampled": 1000
+    },
+    "20": {
+        "subgraph_size": 20,
+        "average_paths_per_node_pair": 12.043777089783285,
+        "connected_subgraphs_processed": 85,
+        "disconnected_subgraphs_skipped": 915,
+        "combinations_sampled": 1000
+    },
+    "21": {
+        "subgraph_size": 21,
+        "average_paths_per_node_pair": 13.406379155435754,
+        "connected_subgraphs_processed": 106,
+        "disconnected_subgraphs_skipped": 894,
+        "combinations_sampled": 1000
+    },
+    "22": {
+        "subgraph_size": 22,
+        "average_paths_per_node_pair": 14.727305276177463,
+        "connected_subgraphs_processed": 133,
+        "disconnected_subgraphs_skipped": 867,
+        "combinations_sampled": 1000
+    },
+    "23": {
+        "subgraph_size": 23,
+        "average_paths_per_node_pair": 15.084542249759611,
+        "connected_subgraphs_processed": 185,
+        "disconnected_subgraphs_skipped": 815,
+        "combinations_sampled": 1000
+    },
+    "24": {
+        "subgraph_size": 24,
+        "average_paths_per_node_pair": 16.826719576719587,
+        "connected_subgraphs_processed": 252,
+        "disconnected_subgraphs_skipped": 748,
+        "combinations_sampled": 1000
+    },
+    "25": {
+        "subgraph_size": 25,
+        "average_paths_per_node_pair": 17.072575757575766,
+        "connected_subgraphs_processed": 374,
+        "disconnected_subgraphs_skipped": 626,
+        "combinations_sampled": 1000
+    },
+    "26": {
+        "subgraph_size": 26,
+        "average_paths_per_node_pair": 17.804145077720214,
+        "connected_subgraphs_processed": 193,
+        "disconnected_subgraphs_skipped": 185,
+        "combinations_sampled": 378
+    },
+    "27": {
+        "subgraph_size": 27,
+        "average_paths_per_node_pair": 18.485470085470087,
+        "connected_subgraphs_processed": 20,
+        "disconnected_subgraphs_skipped": 8,
+        "combinations_sampled": 28
+    },
+    "28": {
+        "subgraph_size": 28,
+        "average_paths_per_node_pair": 19.124338624338623,
+        "connected_subgraphs_processed": 1,
+        "disconnected_subgraphs_skipped": 0,
+        "combinations_sampled": 1
+    }
+}

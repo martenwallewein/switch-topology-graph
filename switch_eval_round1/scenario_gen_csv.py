@@ -100,11 +100,11 @@ def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.
     for iface in egress_interfaces:
         iface_id = iface['id']
         if iface in transit_links:
-            egress_latencies[iface_id] = random.uniform(50, 100)  # Higher latency for transit
+            egress_latencies[iface_id] = random.uniform(50, 70)  # Higher latency for transit
             peering_cost = 1 # random.uniform(3, 5)
             egress_costs[iface_id] = peering_cost * cost_difference_factor
         else:
-            egress_latencies[iface_id] = random.uniform(5, 20)  # Lower latency for peering
+            egress_latencies[iface_id] = random.uniform(10, 20)  # Lower latency for peering
             egress_costs[iface_id] = 1 #random.uniform(3, 5)
 
     # Build the output structure

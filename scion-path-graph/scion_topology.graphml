@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+
+  <!-- Define attributes for nodes -->
+  <key id="d_label" for="node" attr.name="label" attr.type="string"/>
+  <key id="d_as_type" for="node" attr.name="as_type" attr.type="string"/>
+  <key id="d_region" for="node" attr.name="region" attr.type="string"/>
+  <key id="d_isd" for="node" attr.name="isd" attr.type="string"/>
+
+  <!-- Define attributes for edges -->
+  <key id="e_relation" for="edge" attr.name="relation" attr.type="string"/>
+  <key id="e_id" for="edge" attr.name="id" attr.type="string"/>
+
+  <graph id="SCION_Topology_MultiGraph_Final" edgedefault="directed">
+
+    <!-- NODES (omitted for brevity, same as before) -->
+    <node id="KISTI_STL">
+      <data key="d_label">KISTI STL 71-2:0:40</data><data key="d_as_type">Core</data><data key="d_region">North America</data><data key="d_isd">71</data>
+    </node>
+    <node id="KISTI_CHG">
+      <data key="d_label">KISTI CHG 71-2:0:3f</data><data key="d_as_type">Core</data><data key="d_region">North America</data><data key="d_isd">71</data>
+    </node>
+    <node id="FABRIC">
+      <data key="d_label">FABRIC 71-389800</data><data key="d_as_type">Non-Core</data><data key="d_region">North America</data><data key="d_isd">71</data>
+    </node>
+    <node id="UVa">
+      <data key="d_label">UVa 71-225</data><data key="d_as_type">Non-Core</data><data key="d_region">North America</data><data key="d_isd">71</data>
+    </node>
+    <node id="Princeton">
+      <data key="d_label">Princeton 71-88</data><data key="d_as_type">Non-Core</data><data key="d_region">North America</data><data key="d_isd">71</data>
+    </node>
+    <node id="RNP">
+      <data key="d_label">RNP 71-1916</data><data key="d_as_type">Non-Core</data><data key="d_region">South America</data><data key="d_isd">71</data>
+    </node>
+    <node id="UFPR">
+      <data key="d_label">UFPR 71-10881</data><data key="d_as_type">Non-Core</data><data key="d_region">South America</data><data key="d_isd">71</data>
+    </node>
+    <node id="UFMS">
+      <data key="d_label">UFMS 71-2:0:5c</data><data key="d_as_type">Non-Core</data><data key="d_region">South America</data><data key="d_isd">71</data>
+    </node>
+    <node id="GEANT">
+        <data key="d_label">GEANT</data><data key="d_as_type">Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="SWITCH_64">
+      <data key="d_label">SWITCH 64-559</data><data key="d_as_type">Core</data><data key="d_region">EU</data><data key="d_isd">64</data>
+    </node>
+    <node id="ETH_Zurich">
+      <data key="d_label">ETH Zurich 64-2:0:9</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">64</data>
+    </node>
+    <node id="SWITCH_71">
+      <data key="d_label">SWITCH 71-559</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="CCDCoE">
+      <data key="d_label">CCDCoE 71-203311</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="CWI">
+      <data key="d_label">CWI 71-1888</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="SIDN_Labs">
+      <data key="d_label">SIDN Labs 71-1140</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="Demokritos">
+        <data key="d_label">Demokritos 71-2546</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="KISTI_AMS">
+        <data key="d_label">KISTI AMS 71-2:0:3e</data><data key="d_as_type">Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="OVGU">
+        <data key="d_label">OVGU 71-2:0:4a</data><data key="d_as_type">Non-Core</data><data key="d_region">EU</data><data key="d_isd">71</data>
+    </node>
+    <node id="Cybexer">
+        <data key="d_label">Cybexer 71-2:0:49</data><data key="d_as_type">Non-Core</data><data key="d_region">Africa</data><data key="d_isd">71</data>
+    </node>
+    <node id="WACREN">
+        <data key="d_label">WACREN 71-37288</data><data key="d_as_type">Non-Core</data><data key="d_region">Africa</data><data key="d_isd">71</data>
+    </node>
+    <node id="KISTI_DJ">
+      <data key="d_label">KISTI DJ 71-2:0:3b</data><data key="d_as_type">Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="KISTI_SG">
+      <data key="d_label">KISTI SG 71-2:0:3d</data><data key="d_as_type">Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="KISTI_HK">
+      <data key="d_label">KISTI HK 71-2:0:3c</data><data key="d_as_type">Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="Univ_of_Korea">
+      <data key="d_label">Univ. of Korea 71-2:0:4d</data><data key="d_as_type">Non-Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="CityUHK">
+      <data key="d_label">CityUHK 71-4158</data><data key="d_as_type">Non-Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="KAUST">
+      <data key="d_label">KAUST 71-50999</data><data key="d_as_type">Non-Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="NUS">
+      <data key="d_label">NUS 71-2:0:61</data><data key="d_as_type">Non-Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+    <node id="SEC">
+      <data key="d_label">SEC 71-2:0:18</data><data key="d_as_type">Non-Core</data><data key="d_region">ASIA</data><data key="d_isd">71</data>
+    </node>
+
+    <!-- EDGES -->
+    <!-- Core Links -->
+    <edge id="e0" source="KISTI_STL" target="KISTI_CHG"> <data key="e_relation">Core</data> </edge>
+    <edge id="e1" source="KISTI_STL" target="KISTI_DJ"> <data key="e_relation">Core</data> </edge>
+    <edge id="e2" source="KISTI_CHG" target="KISTI_DJ"> <data key="e_relation">Core</data> </edge>
+    <edge id="e3" source="KISTI_CHG" target="KISTI_AMS"> <data key="e_relation">Core</data> </edge>
+    <edge id="e4" source="KISTI_AMS" target="KISTI_DJ"> <data key="e_relation">Core</data> </edge>
+    <edge id="e5" source="KISTI_AMS" target="KISTI_SG"> <data key="e_relation">Core</data> </edge>
+    <edge id="e6" source="KISTI_DJ" target="KISTI_SG"> <data key="e_relation">Core</data> </edge>
+    <edge id="e7" source="KISTI_DJ" target="KISTI_HK"> <data key="e_relation">Core</data> </edge>
+    <!-- Connections to/from GEANT -->
+    <edge id="e8" source="GEANT" target="KISTI_STL"> <data key="e_relation">Core</data> </edge>
+    <edge id="e9" source="GEANT" target="KISTI_CHG"> <data key="e_relation">Core</data> </edge>
+    <edge id="e10" source="GEANT" target="KISTI_AMS"> <data key="e_relation">Core</data> </edge>
+    <edge id="e11" source="GEANT" target="KISTI_AMS"> <data key="e_relation">Core</data> </edge>
+    <edge id="e12" source="GEANT" target="KISTI_SG"> <data key="e_relation">Core</data> </edge>
+    <edge id="e13" source="GEANT" target="KISTI_SG"> <data key="e_relation">Core</data> </edge>
+    <!-- Inter-ISD Core Link -->
+    <edge id="e14" source="GEANT" target="SWITCH_64"> <data key="e_relation">Core</data> </edge>
+    <edge id="e44" source="GEANT" target="SWITCH_64"> <data key="e_relation">Core</data> </edge>
+
+    <!-- Parent-Child Links (Directed from parent to child) -->
+    <edge id="e15" source="KISTI_CHG" target="Princeton" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e55" source="KISTI_STL" target="Princeton" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e16" source="KISTI_STL" target="UVa" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e17" source="KISTI_STL" target="RNP" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e77" source="KISTI_CHG" target="RNP" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e18" source="RNP" target="UFPR" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e19" source="RNP" target="UFMS" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e20" source="KISTI_AMS" target="OVGU" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e21" source="KISTI_SG" target="KAUST" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e22" source="KISTI_SG" target="NUS" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e23" source="KISTI_SG" target="SEC" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e24" source="KISTI_DJ" target="Univ_of_Korea" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e25" source="KISTI_HK" target="CityUHK" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e26" source="SWITCH_64" target="ETH_Zurich" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <!-- Children of GEANT -->
+    <edge id="e27" source="GEANT" target="SWITCH_71" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e28" source="GEANT" target="CCDCoE" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e88" source="GEANT" target="CCDCoE" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e29" source="GEANT" target="Cybexer" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e99" source="GEANT" target="Cybexer" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e30" source="GEANT" target="Demokritos" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e330" source="GEANT" target="Demokritos" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e31" source="GEANT" target="CWI" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e32" source="GEANT" target="SIDN_Labs" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e433" source="GEANT" target="SIDN_Labs" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e33" source="GEANT" target="WACREN" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e34" source="GEANT" target="RNP" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e35" source="GEANT" target="KAUST" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+    <edge id="e36" source="GEANT" target="KAUST" directed="true"> <data key="e_relation">Parent-Child</data> </edge>
+
+    <!-- Peering Links -->
+    <edge id="e37" source="CWI" target="SIDN_Labs"> <data key="e_relation">Peering</data> </edge>
+
+    <!-- Under Construction Links -->
+    <edge id="e38" source="KISTI_STL" target="FABRIC"> <data key="e_relation">Under Construction</data> </edge>
+    <edge id="e39" source="KISTI_CHG" target="FABRIC"> <data key="e_relation">Under Construction</data> </edge>
+    <edge id="e40" source="KISTI_CHG" target="UVa"> <data key="e_relation">Under Construction</data> </edge>
+  </graph>
+</graphml>

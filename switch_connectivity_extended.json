@@ -1,0 +1,404 @@
+{
+    "nodes": [
+        {
+            "id": "switch",
+            "label": "SWITCH",
+            "type": "internal"
+        },
+        {
+            "id": "g\u00e9ant",
+            "label": "G\u00c9ANT",
+            "type": "external"
+        },
+        {
+            "id": "colt",
+            "label": "Colt",
+            "type": "external"
+        },
+        {
+            "id": "arelion",
+            "label": "Arelion",
+            "type": "external"
+        },
+        {
+            "id": "cogent",
+            "label": "Cogent",
+            "type": "external"
+        },
+        {
+            "id": "gtt",
+            "label": "GTT",
+            "type": "external"
+        },
+        {
+            "id": "ams-ix",
+            "label": "AMS-IX",
+            "type": "external"
+        },
+        {
+            "id": "cixp",
+            "label": "CIXP",
+            "type": "external"
+        },
+        {
+            "id": "cernlight",
+            "label": "CERNLight",
+            "type": "external"
+        },
+        {
+            "id": "de-cix",
+            "label": "DE-CIX",
+            "type": "external"
+        },
+        {
+            "id": "equinix",
+            "label": "Equinix",
+            "type": "external"
+        },
+        {
+            "id": "swissix",
+            "label": "SwissIX",
+            "type": "external"
+        },
+        {
+            "id": "cern",
+            "label": "CERN",
+            "type": "external"
+        },
+        {
+            "id": "belw\u00fc",
+            "label": "BelW\u00fc",
+            "type": "external"
+        },
+        {
+            "id": "google",
+            "label": "Google",
+            "type": "external"
+        },
+        {
+            "id": "microsoft",
+            "label": "Microsoft",
+            "type": "external"
+        },
+        {
+            "id": "amazon",
+            "label": "Amazon",
+            "type": "external"
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "type": "external"
+        },
+        {
+            "id": "akamai",
+            "label": "Akamai",
+            "type": "external"
+        },
+        {
+            "id": "swisscom",
+            "label": "Swisscom",
+            "type": "external"
+        },
+        {
+            "id": "init7",
+            "label": "Init7",
+            "type": "external"
+        },
+        {
+            "id": "liberty global",
+            "label": "Liberty Global",
+            "type": "external"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L1",
+            "from": "switch",
+            "to": "g\u00e9ant",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "avg_in": "4.75 Gbits/sec",
+            "avg_out": "3.56 Gbits/sec"
+        },
+        {
+            "id": "L2",
+            "from": "switch",
+            "to": "g\u00e9ant",
+            "capacity": "200 Gb/s",
+            "location": "2x Geneva",
+            "avg_in": "4.75 Gbits/sec",
+            "avg_out": "3.56 Gbits/sec"
+        },
+        {
+            "id": "L3",
+            "from": "switch",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "avg_in": "698.81 Mbits/sec",
+            "avg_out": "781.08 Mbits/sec"
+        },
+        {
+            "id": "L4",
+            "from": "switch",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "avg_in": "698.81 Mbits/sec",
+            "avg_out": "781.08 Mbits/sec"
+        },
+        {
+            "id": "L5",
+            "from": "switch",
+            "to": "arelion",
+            "capacity": "100 Gb/s",
+            "location": "Equinix Zurich",
+            "avg_in": "2.99 Gbits/sec",
+            "avg_out": "1.75 Gbits/sec"
+        },
+        {
+            "id": "L6",
+            "from": "switch",
+            "to": "cogent",
+            "capacity": "10 Gb/s",
+            "location": "IWB Basel",
+            "avg_in": "870.81 Mbits/sec",
+            "avg_out": "69.03 Mbits/sec"
+        },
+        {
+            "id": "L7",
+            "from": "switch",
+            "to": "gtt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "avg_in": "738.58 Mbits/sec",
+            "avg_out": "1.34 Gbits/sec"
+        },
+        {
+            "id": "L8",
+            "from": "switch",
+            "to": "gtt",
+            "capacity": "10 Gb/s",
+            "location": "Digital Realty",
+            "avg_in": "738.58 Mbits/sec",
+            "avg_out": "1.34 Gbits/sec"
+        },
+        {
+            "id": "L9",
+            "from": "switch",
+            "to": "ams-ix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "avg_in": "3.25 Gbits/sec",
+            "avg_out": "448.74 Mbits/sec"
+        },
+        {
+            "id": "L10",
+            "from": "switch",
+            "to": "cixp",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "avg_in": "3.74 Gbits/sec",
+            "avg_out": "2.79 Gbits/sec"
+        },
+        {
+            "id": "L11",
+            "from": "switch",
+            "to": "cernlight",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "avg_in": "4.34 Gbits/sec",
+            "avg_out": "116.04 Mbits/sec"
+        },
+        {
+            "id": "L12",
+            "from": "switch",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "avg_in": "14.15 Gbits/sec",
+            "avg_out": "4.61 Gbits/sec"
+        },
+        {
+            "id": "L13",
+            "from": "switch",
+            "to": "equinix",
+            "capacity": "10 Gb/s",
+            "location": "homepage",
+            "avg_in": "2.15 Gbits/sec",
+            "avg_out": "1.76 Gbits/sec"
+        },
+        {
+            "id": "L14",
+            "from": "switch",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "avg_in": "11.04 Gbits/sec",
+            "avg_out": "16.87 Gbits/sec"
+        },
+        {
+            "id": "L15",
+            "from": "switch",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "avg_in": "11.04 Gbits/sec",
+            "avg_out": "16.87 Gbits/sec"
+        },
+        {
+            "id": "L16",
+            "from": "switch",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "avg_in": "2.41 Gbits/sec",
+            "avg_out": "4.14 Gbits/sec"
+        },
+        {
+            "id": "L17",
+            "from": "switch",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "avg_in": "2.41 Gbits/sec",
+            "avg_out": "4.14 Gbits/sec"
+        },
+        {
+            "id": "L18",
+            "from": "switch",
+            "to": "belw\u00fc",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "1.66 Gbits/sec",
+            "avg_out": "462.08 Mbits/sec"
+        },
+        {
+            "id": "L19",
+            "from": "switch",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "avg_in": "9.37 Gbits/sec",
+            "avg_out": "5.96 Gbits/sec"
+        },
+        {
+            "id": "L20",
+            "from": "switch",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Glattbrugg",
+            "avg_in": "9.37 Gbits/sec",
+            "avg_out": "5.96 Gbits/sec"
+        },
+        {
+            "id": "L21",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "9.71 Gbits/sec",
+            "avg_out": "9.14 Gbits/sec"
+        },
+        {
+            "id": "L22",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "9.71 Gbits/sec",
+            "avg_out": "9.14 Gbits/sec"
+        },
+        {
+            "id": "L23",
+            "from": "switch",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "9.71 Gbits/sec",
+            "avg_out": "9.14 Gbits/sec"
+        },
+        {
+            "id": "L24",
+            "from": "switch",
+            "to": "amazon",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "7.82 Gbits/sec",
+            "avg_out": "1.79 Gbits/sec"
+        },
+        {
+            "id": "L25",
+            "from": "switch",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "avg_in": "5.37 Gbits/sec",
+            "avg_out": "264.08 Mbits/sec"
+        },
+        {
+            "id": "L26",
+            "from": "switch",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "avg_in": "5.37 Gbits/sec",
+            "avg_out": "264.08 Mbits/sec"
+        },
+        {
+            "id": "L27",
+            "from": "switch",
+            "to": "akamai",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "17.93 Gbits/sec",
+            "avg_out": "354.60 Mbits/sec"
+        },
+        {
+            "id": "L28",
+            "from": "switch",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Zurich",
+            "avg_in": "4.53 Gbits/sec",
+            "avg_out": "6.61 Gbits/sec"
+        },
+        {
+            "id": "L29",
+            "from": "switch",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Geneva",
+            "avg_in": "4.53 Gbits/sec",
+            "avg_out": "6.61 Gbits/sec"
+        },
+        {
+            "id": "L30",
+            "from": "switch",
+            "to": "init7",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "avg_in": "840.82 Mbits/sec",
+            "avg_out": "691.51 Mbits/sec"
+        },
+        {
+            "id": "L31",
+            "from": "switch",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Zurich",
+            "avg_in": "410.74 Mbits/sec",
+            "avg_out": "160.91 Mbits/sec"
+        },
+        {
+            "id": "L32",
+            "from": "switch",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Geneva",
+            "avg_in": "410.74 Mbits/sec",
+            "avg_out": "160.91 Mbits/sec"
+        }
+    ]
+}
