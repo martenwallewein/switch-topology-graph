@@ -1,0 +1,70 @@
+{
+    "endhosts": [
+        "Host_1",
+        "Router_A",
+        "Firewall"
+    ],
+    "egress_interfaces": [
+        "L3_transit_cogent",
+        "L4_peering_decix"
+    ],
+    "destinations": [
+        "decix",
+        "telia"
+    ],
+    "paths_per_endhost": {
+        "Host_1": [
+            "p_Host_1_L3_transit_cogent",
+            "p_Host_1_L4_peering_decix"
+        ],
+        "Router_A": [
+            "p_Router_A_L3_transit_cogent",
+            "p_Router_A_L4_peering_decix"
+        ],
+        "Firewall": [
+            "p_Firewall_L3_transit_cogent",
+            "p_Firewall_L4_peering_decix"
+        ]
+    },
+    "path_to_egress_mapping": {
+        "p_Host_1_L3_transit_cogent": "L3_transit_cogent",
+        "p_Host_1_L4_peering_decix": "L4_peering_decix",
+        "p_Router_A_L3_transit_cogent": "L3_transit_cogent",
+        "p_Router_A_L4_peering_decix": "L4_peering_decix",
+        "p_Firewall_L3_transit_cogent": "L3_transit_cogent",
+        "p_Firewall_L4_peering_decix": "L4_peering_decix"
+    },
+    "egress_to_destination_reachability": {
+        "L3_transit_cogent": [
+            "telia"
+        ],
+        "L4_peering_decix": [
+            "decix"
+        ]
+    },
+    "endhost_uplinks": {
+        "Host_1": 100,
+        "Router_A": 100,
+        "Firewall": 100
+    },
+    "egress_capacities": {
+        "L3_transit_cogent": 100.0,
+        "L4_peering_decix": 100.0
+    },
+    "egress_costs": {
+        "L3_transit_cogent": 3.5,
+        "L4_peering_decix": 0
+    },
+    "egress_base_costs": {
+        "L3_transit_cogent": 10000,
+        "L4_peering_decix": 500
+    },
+    "egress_latencies": {
+        "L3_transit_cogent": 69.96804123026173,
+        "L4_peering_decix": 18.25103911090651
+    },
+    "traffic_per_destination": {
+        "decix": 15.5,
+        "telia": 25.0
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "nodes": [
+        {
+            "id": "Host_1",
+            "type": "internal"
+        },
+        {
+            "id": "Router_A",
+            "type": "internal"
+        },
+        {
+            "id": "Firewall",
+            "type": "internal"
+        },
+        {
+            "id": "cogent",
+            "label": "Cogent",
+            "type": "external",
+            "classification": "transit"
+        },
+        {
+            "id": "de-cix",
+            "label": "DE-CIX",
+            "type": "external",
+            "classification": "peering"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L1",
+            "from": "Host_1",
+            "to": "Router_A",
+            "edge_type": "internal",
+            "link_capacity": "100G"
+        },
+        {
+            "id": "L2",
+            "from": "Router_A",
+            "to": "Firewall",
+            "edge_type": "internal",
+            "link_capacity": "200G"
+        },
+        {
+            "id": "L3_transit_cogent",
+            "from": "Firewall",
+            "to": "cogent",
+            "capacity": "100 Gb/s",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L4_peering_decix",
+            "from": "Firewall",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "edge_type": "external",
+            "link_type": "peering"
+        }
+    ]
+}
