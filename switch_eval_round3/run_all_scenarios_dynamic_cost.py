@@ -2,7 +2,6 @@ import json
 import argparse
 from collections import defaultdict
 from pulp import LpProblem, LpMinimize, LpMaximize, LpVariable, lpSum, LpStatus, value
-import pulp
 
 # --- HELPER / UTILITY FUNCTIONS ---
 
@@ -50,11 +49,14 @@ def analyze_performance_of_result(problem_data, solution_data):
     solution_data["performance_analysis"] = {"egress_utilization": utilization_metrics}
     return solution_data
 
-def solve_cost_lp_sunk_costs(problem_data, optimization_goal):
+
+# --- MODEL 1: LP COST SOLVER (MODIFIED FOR SPEED) ---
+
+def solve_cost_lp(problem_data, optimization_goal):
     """
-    Solves the LP model to find the optimal/pessimal cost solution for traffic allocation,
-    assuming fixed egress costs are ALWAYS incurred (sunk costs) regardless of traffic.
-    This simplifies the problem to a standard LP.
+    Solves a simplified LP model to find the optimal/pessimal cost solution.
+    This version optimizes for VARIABLE (per-Gbps) costs only to ensure high speed.
+    The fixed base costs are then added back post-solve for accurate reporting.
     """
     # --- 1. Extract data from input dict ---
     H = problem_data.get("endhosts", [])
@@ -67,15 +69,16 @@ def solve_cost_lp_sunk_costs(problem_data, optimization_goal):
     Cap = problem_data.get("egress_capacities", {})
     T_dest = problem_data.get("traffic_per_destination", {})
     
+    # Per-bandwidth (variable) costs
     Cost = problem_data.get("egress_costs", {}) 
+    # Base (fixed) costs - used for reporting, not for optimization
     BaseCost = problem_data.get("egress_base_costs", {})
 
     # --- 2. Create LP Problem ---
-    # The problem name is updated for clarity
-    prob = LpProblem("Cost_LP_Sunk_Costs", LpMinimize if optimization_goal == "minimize" else LpMaximize)
+    # The problem is now a pure LP, not a MILP
+    prob = LpProblem("Cost_LP_Variable_Only", LpMinimize if optimization_goal == "minimize" else LpMaximize)
 
     # --- 3. Define Variables ---
-
     # a) Continuous variables for traffic flow x_(h,p,d)
     x_vars_keys = []
     for h in H:
@@ -92,18 +95,15 @@ def solve_cost_lp_sunk_costs(problem_data, optimization_goal):
     
     x = LpVariable.dicts("x", x_vars_keys, lowBound=0)
 
-    # b) Binary variables y_e are REMOVED. They are no longer needed.
+    # b) --- REMOVED --- Binary variables y_e are no longer needed.
+    # y = LpVariable.dicts("y", E, cat='Binary')
 
     # --- 4. Define Objective Function ---
-    
-    # The objective is now ONLY the sum of per-bandwidth (variable) costs.
+    # The objective function is now simplified to only include variable costs.
     per_bandwidth_cost = lpSum(x[(h, p, d)] * Cost.get(path_map.get(p), 0) for h, p, d in x_vars_keys)
-    
-    # The base_cost component is REMOVED from the optimization objective.
-    prob += per_bandwidth_cost, "Total_Variable_Cost"
+    prob += per_bandwidth_cost, "Variable_Cost_Only"
 
     # --- 5. Define Constraints ---
-    
     # a) Satisfy all traffic demands per destination
     for d_dest in D:
         prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if d == d_dest) == T_dest.get(d_dest, 0)
@@ -117,122 +117,44 @@ def solve_cost_lp_sunk_costs(problem_data, optimization_goal):
         traffic_on_egress = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == e_egress)
         prob += traffic_on_egress <= Cap.get(e_egress, 0)
 
-        # The "big M" constraint that linked traffic to y_e is REMOVED.
+        # --- REMOVED --- The "Big M" constraint linking x to y is no longer needed.
+        # M = Cap.get(e_egress, 1e9) 
+        # prob += traffic_on_egress <= M * y[e_egress]
 
     # --- 6. Solve and Format Return ---
-    prob.solve(pulp.PULP_CBC_CMD(timeLimit=60))
+    prob.solve()
+    
+    if prob.status != LpStatusOptimal:
+        return {
+            "scenario_name": f"ISP {'Optimal' if optimization_goal == 'minimize' else 'Pessimal'} (Variable Cost LP)",
+            "lp_status": LpStatus[prob.status],
+            "total_cost": 0.0,
+            "traffic_allocation": {}
+        }
     
     allocation = {f"{h}_{p}_to_{d}": v.varValue for (h, p, d), v in x.items() if v.varValue and v.varValue > 1e-6}
     
-    # ADDED: Calculate the total cost post-optimization
-    # The fixed costs are constant and added to the optimized variable cost.
-    total_fixed_cost = sum(BaseCost.values())
-    optimized_variable_cost = value(prob.objective) if prob.objective else 0.0
-    final_total_cost = optimized_variable_cost + total_fixed_cost
+    # --- NEW: Manually calculate the full cost after solving ---
+    # a) Get the optimized variable cost from the LP objective
+    variable_cost_solution = value(prob.objective) if prob.objective else 0.0
 
+    # b) Identify which egress links were used in the solution
+    used_egresses = {path_map.get(key.split('_to_')[0].split('_', 1)[1]) for key in allocation.keys()}
+    
+    # c) Sum the base costs for only the used links
+    base_cost_solution = sum(BaseCost.get(e, 0) for e in used_egresses if e)
+
+    # d) The final total cost is the sum of both components
+    total_cost_solution = variable_cost_solution + base_cost_solution
+    
     return {
-        "scenario_name": f"ISP {'Optimal' if optimization_goal == 'minimize' else 'Pessimal'} (Cost LP with Sunk Costs)",
+        "scenario_name": f"ISP {'Optimal' if optimization_goal == 'minimize' else 'Pessimal'} (Variable Cost LP)",
         "lp_status": LpStatus[prob.status],
-        "total_cost": round(final_total_cost, 2),
-        "total_variable_cost": round(optimized_variable_cost, 2), # More detailed reporting
-        "total_fixed_cost": round(total_fixed_cost, 2),           # More detailed reporting
+        "total_cost": round(total_cost_solution, 2), # Report the accurate combined cost
         "traffic_allocation": allocation
     }
 
-# --- MODEL 1: LP COST SOLVER (from model_with_destinations.py) ---
-
-def solve_cost_lp(problem_data, optimization_goal):
-    """
-    Solves the LP model to find the optimal/pessimal cost solution for traffic allocation,
-    considering both per-bandwidth and fixed base costs for egress links.
-    """
-    # --- 1. Extract data from input dict ---
-    H = problem_data.get("endhosts", [])
-    E = problem_data.get("egress_interfaces", [])
-    D = problem_data.get("destinations", [])
-    paths_per_endhost = problem_data.get("paths_per_endhost", {})
-    path_map = problem_data.get("path_to_egress_mapping", {})
-    reachability = problem_data.get("egress_to_destination_reachability", {})
-    U = problem_data.get("endhost_uplinks", {})
-    Cap = problem_data.get("egress_capacities", {})
-    T_dest = problem_data.get("traffic_per_destination", {})
-    
-    # Per-bandwidth costs (can be 0 or missing for an egress)
-    Cost = problem_data.get("egress_costs", {}) 
-    # Base costs for using a link at all (defaults to 0 if not provided)
-    BaseCost = problem_data.get("egress_base_costs", {})
-
-    # --- 2. Create LP Problem ---
-    prob = LpProblem("Cost_LP_with_Base_Costs", LpMinimize if optimization_goal == "minimize" else LpMaximize)
-
-    # --- 3. Define Variables ---
-
-    # a) Continuous variables for traffic flow x_(h,p,d)
-    x_vars_keys = []
-    for h in H:
-        for p in paths_per_endhost.get(h, []):
-            egress = path_map.get(p)
-            # Path is valid if it uses a known egress interface
-            if not egress or egress not in E:
-                continue
-            for d in reachability.get(egress, []):
-                if d in D:
-                    x_vars_keys.append((h, p, d))
-
-    if not x_vars_keys:
-        return {"error": "No valid variables for LP model could be created."}
-    
-    x = LpVariable.dicts("x", x_vars_keys, lowBound=0)
-
-    # b) Binary variables y_e to model if an egress link is used
-    y = LpVariable.dicts("y", E, cat='Binary')
-
-    # --- 4. Define Objective Function ---
-    
-    # a) Sum of per-bandwidth (variable) costs
-    per_bandwidth_cost = lpSum(x[(h, p, d)] * Cost.get(path_map.get(p), 0) for h, p, d in x_vars_keys)
-    
-    # b) Sum of base (fixed) costs
-    base_cost = lpSum(y[e] * BaseCost.get(e, 0) for e in E)
-    
-    # c) Combine costs for the final objective
-    prob += per_bandwidth_cost + base_cost, "Total_Cost"
-
-    # --- 5. Define Constraints ---
-    
-    # a) Satisfy all traffic demands per destination
-    for d_dest in D:
-        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if d == d_dest) == T_dest.get(d_dest, 0)
-        
-    # b) Respect end-host uplink capacities
-    for h_host in H:
-        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if h == h_host) <= U.get(h_host, 0)
-        
-    # c) Respect egress interface capacities and link binary variables
-    for e_egress in E:
-        traffic_on_egress = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == e_egress)
-        
-        # Original capacity constraint
-        prob += traffic_on_egress <= Cap.get(e_egress, 0)
-
-        # Link y_e to traffic flow x ("big M" constraint)
-        M = Cap.get(e_egress, 1e9) 
-        prob += traffic_on_egress <= M * y[e_egress]
-
-    # --- 6. Solve and Format Return ---
-    # prob.solve()
-    prob.solve(pulp.PULP_CBC_CMD(timeLimit=60))
-    
-    allocation = {f"{h}_{p}_to_{d}": v.varValue for (h, p, d), v in x.items() if v.varValue and v.varValue > 1e-6}
-    
-    return {
-        "scenario_name": f"ISP {'Optimal' if optimization_goal == 'minimize' else 'Pessimal'} (Cost LP)",
-        "lp_status": LpStatus[prob.status],
-        "total_cost": round(value(prob.objective), 2) if prob.objective else 0.0,
-        "traffic_allocation": allocation
-    }
-
-# --- NEW MODEL: LATENCY-OPTIMIZING LP SOLVER ---
+# --- LATENCY AND BEHAVIORAL MODELS (Unchanged) ---
 
 def solve_latency_lp(problem_data):
     """
@@ -309,9 +231,6 @@ def solve_latency_lp(problem_data):
         "total_unsent_traffic": round(total_unsent, 2),
         "traffic_allocation": allocation
     }
-
-
-# --- MODEL 3 & 4: BEHAVIORAL SIMULATORS ---
 
 def run_behavioral_sim(problem_data, mode):
     # (Combines logic from thundering_herd_simulator.py and fair_share_simulator.py)
@@ -392,12 +311,12 @@ def main():
 
     # 1. ISP Optimal (Min Cost)
     print("1. Calculating ISP-Optimal (Min Cost)...")
-    min_cost_res = solve_cost_lp_sunk_costs(problem_data, "minimize")
+    min_cost_res = solve_cost_lp(problem_data, "minimize")
     all_results["isp_optimal"] = analyze_performance_of_result(problem_data, min_cost_res)
 
     # 2. ISP Pessimal (Max Cost)
     print("2. Calculating ISP-Pessimal (Max Cost)...")
-    max_cost_res = solve_cost_lp_sunk_costs(problem_data, "maximize")
+    max_cost_res = solve_cost_lp(problem_data, "maximize")
     all_results["isp_pessimal"] = analyze_performance_of_result(problem_data, max_cost_res)
     
     # 3. End-Host Latency Optimal (LP-based Spill-over)

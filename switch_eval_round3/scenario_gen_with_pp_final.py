@@ -20,7 +20,16 @@ def parse_capacity(capacity_str):
     else:
         return float(capacity_str)
 
-def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.0, cost_difference_factor=3.5, prefer_peering=False):
+def generate_traffic_scenario(
+    graph_data,
+    traffic_df,
+    traffic_increase_factor=1.0,
+    cost_difference_factor=3.5,
+    prefer_peering=False,
+    transit_base_cost=None,
+    peering_base_cost=None,
+    peering_variable_cost=None
+):
     """
     Generates a realistic traffic scenario with differentiated base and dynamic costs
     for transit vs. peering links.
@@ -31,6 +40,9 @@ def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.
         traffic_increase_factor (float): A factor to scale the traffic volumes.
         cost_difference_factor (float): The multiplier for dynamic transit costs relative to a base cost.
         prefer_peering (bool): If True, do not expose transit paths to destinations reachable via peering.
+        transit_base_cost (float, optional): If provided, overrides default transit base costs.
+        peering_base_cost (float, optional): If provided, overrides default peering base costs.
+        peering_variable_cost (float, optional): If provided, overrides default peering variable costs.
 
     Returns:
         dict: The generated traffic scenario.
@@ -50,7 +62,8 @@ def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.
     print("-----------------------------\n")
     
     # 2. Load and scale traffic data from the DataFrame
-    traffic_df.set_index('to', inplace=True)
+    if 'to' in traffic_df.columns:
+        traffic_df.set_index('to', inplace=True)
     traffic_per_destination = (traffic_df['traffic_out_gbps'] * traffic_increase_factor).to_dict()
     destinations = list(traffic_per_destination.keys())
 
@@ -93,45 +106,50 @@ def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.
     egress_latencies = {}
     egress_base_costs = {}
     egress_dynamic_costs = {}
+    egress_capacities = {}
 
     # Define cost tiers based on capacity (in Gbps)
-    BASE_TRANSIT_COST_10G = 2000    # Monthly base cost for a 10G port
-    BASE_TRANSIT_COST_100G = 10000   # Monthly base cost for a 100G port
-    BASE_TRANSIT_COST_400G = 30000   # Monthly base cost for a 400G+ port
-    BASE_PEERING_PORT_COST = 500    # Flat monthly fee for an IXP port
-
-    BASE_DYNAMIC_COST_UNIT = 1.0    # Base unit for dynamic costs
+    BASE_TRANSIT_COST_10G = 2000
+    BASE_TRANSIT_COST_100G = 10000
+    BASE_TRANSIT_COST_400G = 30000
+    BASE_PEERING_PORT_COST = 500
+    BASE_DYNAMIC_COST_UNIT = 1.0
 
     print("--- Generating Costs and Latencies ---")
     for iface in egress_interfaces:
         iface_id = iface['id']
         capacity_gbps = parse_capacity(iface.get('capacity') or iface.get('link_capacity', '0'))
-        print("Got capacity " + capacity_gbps + " for interface " + iface_id)
-
+        print("Got capacity " + str(capacity_gbps) + " for interface " + iface_id)
+        egress_capacities[iface_id] = capacity_gbps
         if iface in transit_links:
-            # Higher latency for transit
             egress_latencies[iface_id] = random.uniform(50, 70)
-            
-            # Dynamic cost is higher for transit
             egress_dynamic_costs[iface_id] = BASE_DYNAMIC_COST_UNIT * cost_difference_factor
             
-            # Base cost depends on capacity tier
-            if capacity_gbps <= 10:
-                egress_base_costs[iface_id] = BASE_TRANSIT_COST_10G
-            elif capacity_gbps <= 100:
-                egress_base_costs[iface_id] = BASE_TRANSIT_COST_100G
-            else:
-                egress_base_costs[iface_id] = BASE_TRANSIT_COST_400G
+            # *** MODIFICATION: Check for transit_base_cost override ***
+            if transit_base_cost is not None:
+                egress_base_costs[iface_id] = transit_base_cost
+            else: # Fallback to original capacity-tiered logic
+                if capacity_gbps <= 10:
+                    egress_base_costs[iface_id] = BASE_TRANSIT_COST_10G
+                elif capacity_gbps <= 100:
+                    egress_base_costs[iface_id] = BASE_TRANSIT_COST_100G
+                else:
+                    egress_base_costs[iface_id] = BASE_TRANSIT_COST_400G
             
         else:  # Peering link
-            # Lower latency for direct peering
             egress_latencies[iface_id] = random.uniform(10, 20)
             
-            # Dynamic cost for peering is 0 (settlement-free)
-            egress_dynamic_costs[iface_id] = 0
+            # *** MODIFICATION: Check for peering_variable_cost override ***
+            if peering_variable_cost is not None:
+                egress_dynamic_costs[iface_id] = peering_variable_cost # TODO: HERE WE NEED TO HAVE DIFFERENT VALUES FOR DIFFERENT LINKS
+            else: # Fallback to original logic
+                egress_dynamic_costs[iface_id] = 0
             
-            # Base cost is a low, flat port fee
-            egress_base_costs[iface_id] = BASE_PEERING_PORT_COST
+            # *** MODIFICATION: Check for peering_base_cost override ***
+            if peering_base_cost is not None:
+                egress_base_costs[iface_id] = peering_base_cost
+            else: # Fallback to original logic
+                egress_base_costs[iface_id] = BASE_PEERING_PORT_COST
     
     print("Example Costs Generated:")
     if transit_links:
@@ -152,9 +170,9 @@ def generate_traffic_scenario(graph_data, traffic_df, traffic_increase_factor=1.
         "path_to_egress_mapping": {f"p_{host}_{iface['id']}": iface['id'] for host in endhosts for iface in egress_interfaces},
         "egress_to_destination_reachability": egress_to_destination_reachability,
         "endhost_uplinks": {host: 100 for host in endhosts},
-        "egress_capacities": {iface['id']: capacity_gbps for iface in egress_interfaces},
-        "egress_costs": egress_dynamic_costs,      # Dynamic (per-Gbps) costs
-        "egress_base_costs": egress_base_costs,    # NEW: Fixed (monthly) costs
+        "egress_capacities": egress_capacities, # {iface['id']: capacity_gbps for iface in egress_interfaces},
+        "egress_costs": egress_dynamic_costs,
+        "egress_base_costs": egress_base_costs,
         "egress_latencies": egress_latencies,
         "traffic_per_destination": traffic_per_destination
     }
@@ -169,6 +187,12 @@ def main():
     parser.add_argument("-t", "--traffic_increase_factor", type=float, default=1.0, help="Factor to scale the traffic loaded from the CSV.")
     parser.add_argument("-c", "--cost_difference_factor", type=float, default=3.5, help="Cost difference factor for dynamic transit link costs.")
     parser.add_argument("--prefer_peering", action="store_true", help="If set, do not use transit links for destinations reachable via peering.")
+    
+    # --- ADDED PARAMETERS ---
+    parser.add_argument("--transit-base-cost", type=float, default=None, help="Override default base cost for all transit links.")
+    parser.add_argument("--peering-base-cost", type=float, default=None, help="Override default base cost for all peering links.")
+    parser.add_argument("--peering-variable-cost", type=float, default=None, help="Override default variable (per-Gbps) cost for all peering links.")
+    
     args = parser.parse_args()
 
     try:
@@ -187,8 +211,17 @@ def main():
         print(f"Error: Traffic CSV file '{args.traffic_csv_file}' not found.")
         return
 
-    # Generate the traffic scenario
-    traffic_scenario = generate_traffic_scenario(graph_data, traffic_df, args.traffic_increase_factor, args.cost_difference_factor, args.prefer_peering)
+    # Generate the traffic scenario, passing the new arguments
+    traffic_scenario = generate_traffic_scenario(
+        graph_data,
+        traffic_df,
+        args.traffic_increase_factor,
+        args.cost_difference_factor,
+        args.prefer_peering,
+        args.transit_base_cost,
+        args.peering_base_cost,
+        args.peering_variable_cost
+    )
 
     # Write the output to a file
     try:

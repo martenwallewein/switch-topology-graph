@@ -4,12 +4,13 @@ import sys
 
 def run_workflow():
     """
-    Orchestrates a two-step process for multiple, distinct cost model configurations:
+    Orchestrates a two-step process for multiple, distinct cost model configurations.
+    This version runs each configuration twice: with and without '--prefer-peering'.
     1. Calls a scenario generator script with specific cost parameters for each model.
     2. Calls the scenario runner script for each generated scenario.
     """
     # --- Configuration ---
-    scenario_generator_script = "scenario_gen_with_pp.py"
+    scenario_generator_script = "scenario_gen_with_pp_final.py"
     scenario_runner_script = "run_all_scenarios_final.py"
     graph_file = "final_graph_link_types_balanced.json"
     traffic_file = "avg_by_destination.csv"
@@ -20,9 +21,9 @@ def run_workflow():
     configurations = [
         {
             "name": "high_fixed_transit",
-            "transit_base_cost": 10000,
-            "peering_base_cost": 500,
-            "peering_variable_cost": 0.1, # Low, but non-zero
+            "transit_base_cost": 1,
+            "peering_base_cost": 1,
+            "peering_variable_cost": 1, # Low, but non-zero
             "desc": "High Fixed Costs for Transit, Low for Peering"
         },
         {
@@ -50,71 +51,86 @@ def run_workflow():
 
     # --- Loop through each configuration ---
     for config in configurations:
-        print(f"\n{'='*70}")
-        print(f"--- Running Scenario: {config['desc']} ---")
-        print(f"{'='*70}")
+        print(f"\n{'='*80}")
+        print(f"--- Starting Configuration: {config['desc']} ---")
+        print(f"{'='*80}")
 
-        # Define unique output directories for this scenario
-        scenario_output_dir = os.path.join("results", config['name'], "scenarios")
-        results_output_dir = os.path.join("results", config['name'], "results")
+        # --- NEW: Loop to run with and without the --prefer-peering flag ---
+        for prefer_peering_flag in [True, False]:
+            mode_name = "with_prefer_peering" if prefer_peering_flag else "no_prefer_peering"
+            mode_desc = "WITH --prefer-peering" if prefer_peering_flag else "WITHOUT --prefer-peering (default)"
 
-        # --- 1. Create the output directories ---
-        try:
-            os.makedirs(scenario_output_dir, exist_ok=True)
-            os.makedirs(results_output_dir, exist_ok=True)
-            print(f"Output directories in 'results/{config['name']}/' are ready.")
-        except OSError as e:
-            print(f"Error creating directories: {e}")
-            continue
+            print(f"\n{'-'*70}")
+            print(f"--- Running Mode: {mode_desc} ---")
+            print(f"{'-'*70}")
 
-        # --- 2. Loop through the cost factors and repetitions ---
-        for cost_factor in range(2, 21):
-            print(f"\n--- Processing cost_difference_factor: {cost_factor} ---")
-            for run_number in range(1, 11):
-                print(f"\n  - Starting run {run_number}/10 for factor {cost_factor}...")
-                base_filename = f"factor_{cost_factor}_run_{run_number}"
-                scenario_output_path = os.path.join(scenario_output_dir, f"scenario_{base_filename}.json")
-                result_output_path = os.path.join(results_output_dir, f"result_{base_filename}.json")
+            # Define unique output directories for this scenario and mode
+            scenario_output_dir = os.path.join("results", config['name'], mode_name, "scenarios")
+            results_output_dir = os.path.join("results", config['name'], mode_name, "results")
 
-                # --- STEP 1: Generate the scenario file with specific cost params ---
-                print(f"    [1/2] Generating scenario: {scenario_output_path}")
-                generator_command = [
-                    sys.executable,
-                    scenario_generator_script,
-                    graph_file,
-                    traffic_file,
-                    "-o", scenario_output_path,
-                    "-c", str(cost_factor), # This factor now primarily drives transit variable cost
-                    "--transit-base-cost", str(config["transit_base_cost"]),
-                    "--peering-base-cost", str(config["peering_base_cost"]),
-                    "--peering-variable-cost", str(config["peering_variable_cost"])
-                ]
+            # --- 1. Create the output directories ---
+            try:
+                os.makedirs(scenario_output_dir, exist_ok=True)
+                os.makedirs(results_output_dir, exist_ok=True)
+                print(f"Output directories in 'results/{config['name']}/{mode_name}/' are ready.")
+            except OSError as e:
+                print(f"Error creating directories: {e}")
+                continue
 
-                try:
-                    subprocess.run(generator_command, check=True, capture_output=True, text=True)
-                    print("    [1/2] Scenario generation successful.")
-                except FileNotFoundError:
-                    print(f"    ERROR: The script '{scenario_generator_script}' was not found.")
-                    return
-                except subprocess.CalledProcessError as e:
-                    print(f"    ERROR during scenario generation for {base_filename}.")
-                    print(f"    ----- Error Output -----\n{e.stderr.strip()}\n    ------------------------")
-                    continue
+            # --- 2. Loop through the cost factors and repetitions ---
+            for cost_factor in range(2, 21):
+                print(f"\n--- Processing cost_difference_factor: {cost_factor} ---")
+                for run_number in range(1, 2):
+                    print(f"\n  - Starting run {run_number}/10 for factor {cost_factor}...")
+                    base_filename = f"factor_{cost_factor}_run_{run_number}"
+                    scenario_output_path = os.path.join(scenario_output_dir, f"scenario_{base_filename}.json")
+                    result_output_path = os.path.join(results_output_dir, f"result_{base_filename}.json")
 
-                # --- STEP 2: Run the scenario ---
-                print(f"    [2/2] Running scenario and generating result: {result_output_path}")
-                runner_command = [sys.executable, scenario_runner_script, scenario_output_path, result_output_path]
+                    # --- STEP 1: Generate the scenario file with specific cost params ---
+                    print(f"    [1/2] Generating scenario: {scenario_output_path}")
+                    generator_command = [
+                        sys.executable,
+                        scenario_generator_script,
+                        graph_file,
+                        traffic_file,
+                        "-o", scenario_output_path,
+                        "-c", str(cost_factor), # This factor now primarily drives transit variable cost
+                        "--transit-base-cost", str(config["transit_base_cost"]),
+                        "--peering-base-cost", str(config["peering_base_cost"]),
+                        "--peering-variable-cost", str(config["peering_variable_cost"])
+                    ]
 
-                try:
-                    subprocess.run(runner_command, check=True, capture_output=True, text=True)
-                    print("    [2/2] Scenario run successful.")
-                except FileNotFoundError:
-                    print(f"    ERROR: The script '{scenario_runner_script}' was not found.")
-                    return
-                except subprocess.CalledProcessError as e:
-                    print(f"    ERROR during scenario run for {base_filename}.")
-                    print(f"    ----- Error Output -----\n{e.stderr.strip()}\n    ------------------------")
-                    continue
+                    # --- NEW: Conditionally add the --prefer-peering flag ---
+                    if prefer_peering_flag:
+                        generator_command.append("--prefer_peering")
+
+                    try:
+                        res = subprocess.run(generator_command, check=True, capture_output=True, text=True)
+                        print(res.stdout)
+                        print("    [1/2] Scenario generation successful.")
+                        
+                    except FileNotFoundError:
+                        print(f"    ERROR: The script '{scenario_generator_script}' was not found.")
+                        return
+                    except subprocess.CalledProcessError as e:
+                        print(f"    ERROR during scenario generation for {base_filename}.")
+                        print(f"    ----- Error Output -----\n{e.stderr.strip()}\n    ------------------------")
+                        continue
+
+                    # --- STEP 2: Run the scenario ---
+                    print(f"    [2/2] Running scenario and generating result: {result_output_path}")
+                    runner_command = [sys.executable, scenario_runner_script, scenario_output_path, result_output_path]
+
+                    try:
+                        subprocess.run(runner_command, check=True, capture_output=True, text=True)
+                        print("    [2/2] Scenario run successful.")
+                    except FileNotFoundError:
+                        print(f"    ERROR: The script '{scenario_runner_script}' was not found.")
+                        return
+                    except subprocess.CalledProcessError as e:
+                        print(f"    ERROR during scenario run for {base_filename}.")
+                        print(f"    ----- Error Output -----\n{e.stderr.strip()}\n    ------------------------")
+                        continue
 
     print("\nAll workflow tasks are complete.")
 
