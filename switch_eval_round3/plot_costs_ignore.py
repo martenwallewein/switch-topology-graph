@@ -7,13 +7,7 @@ import matplotlib.pyplot as plt
 def process_factors_from_folder(results_dir):
     """
     Scans a directory for result files and calculates the cost increase factor.
-
-    Args:
-        results_dir (str): The path to the directory containing result JSON files.
-
-    Returns:
-        defaultdict: A dictionary mapping each cost factor to a list of
-                     calculated cost increase factors (e.g., 1.5, 2.0).
+    (No changes needed in this function)
     """
     if not os.path.isdir(results_dir):
         print(f"Warning: Directory not found, skipping: '{results_dir}'")
@@ -23,7 +17,7 @@ def process_factors_from_folder(results_dir):
     filename_pattern = re.compile(r"result_factor_(\d+)_run_(\d+)\.json")
 
     print(f"--> Processing folder: {results_dir}")
-    for filename in os.listdir(results_dir):
+    for filename in sorted(os.listdir(results_dir)):
         match = filename_pattern.match(filename)
         if match:
             cost_factor = int(match.group(1))
@@ -43,38 +37,40 @@ def process_factors_from_folder(results_dir):
                     increase_factors_by_factor[cost_factor].append(1.0)
                 else:
                     print(f"    - Warning: Infinite increase factor in '{filename}' (optimal cost is 0). Skipping point.")
-
-
             except Exception as e:
                 print(f"    - Warning: Could not process file '{filename}'. Reason: {e}")
 
     return increase_factors_by_factor
 
-
 def analyze_and_plot_final_comparison():
     """
-    Analyzes results from multiple scenario folders and generates a comparative plot
-    showing the cost increase factor with specific line styles.
+    Analyzes results from four different cost model scenarios and generates
+    a comparative plot showing the cost increase factor for each.
     """
-    # --- 1. Configuration: Add a 'linestyle' key for each scenario ---
+    # --- 1. MODIFIED Configuration: Define the 4 cost scenarios to compare ---
     scenarios = {
-        "Switch Traffic Data (Balanced Peering/Transit)": {
-            "path": "peering_transit_factor_balanced/results",
+        "High Fixed Transit, Low Peering": {
+            "path": "results/high_fixed_transit/results",
             "color": "dodgerblue",
-            "linestyle": "solid"  # Solid line for the balanced case
+            "linestyle": "solid"
         },
-        "Hypothetical: High Peering / Low Transit": {
-            "path": "peering_transit_factor_high/results",
+        "Commitment-Based Transit": {
+            "path": "results/commitment_based_transit/results",
+            "color": "green",
+            "linestyle": "dashed"
+        },
+        "Peering with High Port Fees": {
+            "path": "results/peering_with_port_fees/results",
+            "color": "red",
+            "linestyle": "dotted"
+        },
+        "Paid Peering Model": {
+            "path": "results/paid_peering/results",
             "color": "darkorange",
-            "linestyle": "dashed" # Dashed line for this case
-        },
-        "Hypothetical: Low Peering / High Transit": {
-            "path": "peering_transit_factor_low/results",
-            "color": "purple",
-            "linestyle": "dashed" # Dashed line for this case
+            "linestyle": "dashdot"
         }
     }
-    output_plot_file = "scenario_comparison_final.png"
+    output_plot_file = "cost_model_scenario_comparison.png"
 
     # --- 2. Process data for each scenario ---
     all_factor_results = {}
@@ -90,41 +86,35 @@ def analyze_and_plot_final_comparison():
     print("\nAll folders processed. Generating comparative plot...")
 
     # --- 3. Plotting the results ---
-    fig, ax = plt.subplots(figsize=(14, 9))
+    fig, ax = plt.subplots(figsize=(16, 10))
     all_scenario_factors = set()
 
-    # Plot data for each scenario
     for scenario_name, factor_data in all_factor_results.items():
         config = scenarios[scenario_name]
-        color = config["color"]
-        linestyle = config["linestyle"] # Get the linestyle from the config
-        
         sorted_factors = sorted(factor_data.keys())
         all_scenario_factors.update(sorted_factors)
-
         average_factors = [sum(factor_data[f]) / len(factor_data[f]) if factor_data[f] else 0 for f in sorted_factors]
 
-        # Plot all individual data points
+        # Plot individual data points with low opacity
         for factor in sorted_factors:
             ax.scatter([factor] * len(factor_data[factor]), factor_data[factor],
-                       alpha=0.2, color=color, s=40, label='_nolegend_')
+                       alpha=0.15, color=config["color"], s=40, label='_nolegend_')
         
-        # Plot the average trend line with the specified linestyle
+        # Plot the average trend line
         ax.plot(sorted_factors, average_factors,
                 marker='o',
-                linestyle=linestyle, # Use the configured line style
-                color=color,
+                linestyle=config["linestyle"],
+                color=config["color"],
                 linewidth=2.5,
                 label=scenario_name)
 
     # --- 4. Formatting the plot ---
-    ax.set_title('ISP Cost Increase Factor Comparison Across Scenarios', fontsize=18)
-    ax.set_xlabel('Cost Difference Factor (Transit Cost / Peering Cost)', fontsize=14)
+    ax.set_title('ISP Cost Increase Factor Across Different Cost Models', fontsize=20)
+    ax.set_xlabel('Cost Difference Factor (Transit Variable Cost / Peering Variable Cost)', fontsize=14)
     ax.set_ylabel('Cost Increase Factor (Pessimal / Optimal)', fontsize=14)
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
-    
     ax.axhline(y=1.0, color='gray', linestyle=':', linewidth=1.5, label='Baseline (No Increase)')
-    ax.legend(fontsize=12)
+    ax.legend(fontsize=12, loc='upper left')
     
     if all_scenario_factors:
         ax.set_xticks(sorted(list(all_scenario_factors)))
@@ -135,7 +125,6 @@ def analyze_and_plot_final_comparison():
     plt.savefig(output_plot_file)
     print(f"\nPlot successfully saved to '{output_plot_file}'")
     plt.show()
-
 
 if __name__ == "__main__":
     # Ensure you have matplotlib installed: pip install matplotlib

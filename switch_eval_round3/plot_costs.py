@@ -59,12 +59,12 @@ def analyze_and_plot_final_comparison():
     # --- 1. MODIFIED Configuration: Define the scenarios to compare ---
     scenarios = {
         "Without --prefer_peering": {
-            "path": "peering_transit_factor_balanced_without_prefer_peering/results",
+            "path": "results/balanced/no_prefer_peering/results",
             "color": "dodgerblue",
             "linestyle": "solid"  # Solid line for the baseline case
         },
         "With --prefer_peering": {
-            "path": "peering_transit_factor_balanced_with_prefer_peering/results",
+            "path": "results/balanced/with_prefer_peering/results",
             "color": "red",
             "linestyle": "dashed" # Dashed line for the new case
         }

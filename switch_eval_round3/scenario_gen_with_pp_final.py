@@ -123,7 +123,7 @@ def generate_traffic_scenario(
         egress_capacities[iface_id] = capacity_gbps
         if iface in transit_links:
             egress_latencies[iface_id] = random.uniform(50, 70)
-            egress_dynamic_costs[iface_id] = BASE_DYNAMIC_COST_UNIT * cost_difference_factor
+            egress_dynamic_costs[iface_id] = cost_difference_factor * random.uniform(0.9, 1.1)
             
             # *** MODIFICATION: Check for transit_base_cost override ***
             if transit_base_cost is not None:
@@ -140,10 +140,11 @@ def generate_traffic_scenario(
             egress_latencies[iface_id] = random.uniform(10, 20)
             
             # *** MODIFICATION: Check for peering_variable_cost override ***
-            if peering_variable_cost is not None:
-                egress_dynamic_costs[iface_id] = peering_variable_cost # TODO: HERE WE NEED TO HAVE DIFFERENT VALUES FOR DIFFERENT LINKS
-            else: # Fallback to original logic
-                egress_dynamic_costs[iface_id] = 0
+            #if peering_variable_cost is not None:
+                # TODO: HERE WE NEED TO HAVE DIFFERENT VALUES FOR DIFFERENT LINKS
+            egress_dynamic_costs[iface_id] = random.uniform(0.9, 1.1)
+            #else: # Fallback to original logic
+            #    egress_dynamic_costs[iface_id] = 0
             
             # *** MODIFICATION: Check for peering_base_cost override ***
             if peering_base_cost is not None:

@@ -12,7 +12,7 @@ def run_workflow():
     # --- Configuration ---
     scenario_generator_script = "scenario_gen_with_pp_final.py"
     scenario_runner_script = "run_all_scenarios_final.py"
-    graph_file = "final_graph_link_types_balanced.json"
+    graph_file = "final_graph_link_types_low.json"
     traffic_file = "avg_by_destination.csv"
 
     # --- Define the 4 different experiment configurations to run ---
@@ -20,7 +20,7 @@ def run_workflow():
     # --transit-base-cost, --peering-base-cost, --peering-variable-cost
     configurations = [
         {
-            "name": "balanced",
+            "name": "low_peering",
             "transit_base_cost": 1,
             "peering_base_cost": 1,
             "peering_variable_cost": 1, # Low, but non-zero

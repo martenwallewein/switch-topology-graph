@@ -59,22 +59,22 @@ def analyze_and_plot_final_comparison():
     # --- 1. Configuration: Add a 'linestyle' key for each scenario ---
     scenarios = {
         "Switch Traffic Data (Balanced Peering/Transit)": {
-            "path": "peering_transit_factor_balanced/results",
-            "color": "dodgerblue",
+            "path": "results/balanced/no_prefer_peering/results",
+            "color": "green",
             "linestyle": "solid"  # Solid line for the balanced case
         },
         "Hypothetical: High Peering / Low Transit": {
-            "path": "peering_transit_factor_high/results",
-            "color": "darkorange",
+            "path": "results/high_peering/no_prefer_peering/results",
+            "color": "dodgerblue",
             "linestyle": "dashed" # Dashed line for this case
         },
         "Hypothetical: Low Peering / High Transit": {
-            "path": "peering_transit_factor_low/results",
-            "color": "purple",
+            "path": "results/low_peering/no_prefer_peering/results",
+            "color": "darkorange",
             "linestyle": "dashed" # Dashed line for this case
         }
     }
-    output_plot_file = "scenario_comparison_final.png"
+    output_plot_file = "scenario_comparison_final.pdf"
 
     # --- 2. Process data for each scenario ---
     all_factor_results = {}
@@ -120,7 +120,7 @@ def analyze_and_plot_final_comparison():
     # --- 4. Formatting the plot ---
     ax.set_title('ISP Cost Increase Factor Comparison Across Scenarios', fontsize=18)
     ax.set_xlabel('Cost Difference Factor (Transit Cost / Peering Cost)', fontsize=14)
-    ax.set_ylabel('Cost Increase Factor (Pessimal / Optimal)', fontsize=14)
+    ax.set_ylabel('Cost Increase Factor (Worst Case vs Optimal Costs)', fontsize=14)
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
     
     ax.axhline(y=1.0, color='gray', linestyle=':', linewidth=1.5, label='Baseline (No Increase)')
