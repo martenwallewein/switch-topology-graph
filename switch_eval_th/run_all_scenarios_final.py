@@ -234,11 +234,13 @@ def solve_cost_lp(problem_data, optimization_goal):
 
 # --- NEW MODEL: LATENCY-OPTIMIZING LP SOLVER ---
 
+from pulp import LpProblem, LpMinimize, LpVariable, lpSum, LpStatus, value
+
 def solve_latency_lp(problem_data):
     """
     Solves an LP model to find the traffic allocation that minimizes total
-    latency-weighted traffic. This models the behavior of filling the lowest
-    latency links first, then spilling over to the next lowest, etc.
+    latency-weighted traffic and calculates congestion on the shortest path for each destination.
+    This version correctly identifies direct vs. transit links from existing reachability data.
     """
     # --- 1. Extract data from input dict ---
     H = problem_data.get("endhosts", [])
@@ -250,13 +252,12 @@ def solve_latency_lp(problem_data):
     U = problem_data.get("endhost_uplinks", {})
     Cap = problem_data.get("egress_capacities", {})
     T_dest = problem_data.get("traffic_per_destination", {})
-    Latencies = problem_data.get("egress_latencies", {}) 
+    Latencies = problem_data.get("egress_latencies", {})
 
     # --- 2. Create LP Problem ---
     prob = LpProblem("Latency_Minimization_LP", LpMinimize)
 
     # --- 3. Define Variables ---
-    # Continuous variables for traffic flow x_(h,p,d)
     x_vars_keys = []
     for h in H:
         for p in paths_per_endhost.get(h, []):
@@ -273,32 +274,70 @@ def solve_latency_lp(problem_data):
     x = LpVariable.dicts("x", x_vars_keys, lowBound=0)
 
     # --- 4. Define Objective Function ---
-    # Minimize the sum of (traffic * latency) for all flows.
-    # The solver will prioritize putting traffic on paths with the lowest latency.
     prob += lpSum(x[(h, p, d)] * Latencies.get(path_map.get(p), float('inf')) for h, p, d in x_vars_keys), "Total_Latency_Weighted_Traffic"
 
     # --- 5. Define Constraints ---
+    for dest in D:
+        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if d == dest) == T_dest.get(dest, 0), f"Satisfy_Demand_for_{dest}"
     
-    # a) Satisfy all traffic demands per destination
-    total_demand = sum(T_dest.values())
-    prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys) == total_demand, "Satisfy_Total_Demand"
-    
-    # b) Respect end-host uplink capacities
     for h_host in H:
-        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if h == h_host) <= U.get(h_host, 0)
+        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if h == h_host) <= U.get(h_host, 0), f"Uplink_Capacity_{h_host}"
         
-    # c) Respect egress interface capacities
     for e_egress in E:
         traffic_on_egress = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == e_egress)
-        prob += traffic_on_egress <= Cap.get(e_egress, 0)
+        prob += traffic_on_egress <= Cap.get(e_egress, 0), f"Egress_Capacity_{e_egress}"
 
-    # --- 6. Solve and Format Return ---
+    # --- 6. Solve Problem ---
     prob.solve()
-
-    # Calculate total traffic sent and unsent
-    total_sent = sum(v.varValue for v in x.values() if v.varValue)
-    total_unsent = total_demand - total_sent
     
+    # --- 7. Congestion Analysis (Corrected Heuristic) ---
+    congestion_analysis = {}
+    for dest in D:
+        shortest_path_egress = None
+        
+        # Heuristic: A direct path is an egress that can ONLY reach the target destination.
+        # Step 1: Find a DIRECT peering link to the destination first.
+        direct_links = []
+        for egress, reachable_dests in reachability.items():
+            if len(reachable_dests) == 1 and reachable_dests[0] == dest:
+                direct_links.append(egress)
+
+        if direct_links:
+            # If multiple direct links exist, pick the one with the lowest latency.
+            shortest_path_egress = min(direct_links, key=lambda e: Latencies.get(e, float('inf')))
+        
+        # Step 2: If no direct link is found, find the best TRANSIT link.
+        if not shortest_path_egress:
+            # A transit link is any link that can reach the destination.
+            transit_links = [e for e, dests in reachability.items() if dest in dests]
+            if transit_links:
+                shortest_path_egress = min(transit_links, key=lambda e: Latencies.get(e, float('inf')))
+
+        if not shortest_path_egress:
+            congestion_analysis[dest] = {"error": "Could not determine any path."}
+            continue
+
+        # --- Perform calculations with the correctly identified shortest path ---
+        capacity_of_shortest_path = Cap.get(shortest_path_egress, 0)
+        demand_for_dest = T_dest.get(dest, 0)
+        spillover_traffic = max(0, demand_for_dest - capacity_of_shortest_path)
+        
+        sent_on_spillover_paths = sum(
+            val.varValue for (h, p, d), val in x.items()
+            if d == dest and path_map.get(p) != shortest_path_egress and val.varValue and val.varValue > 1e-6
+        )
+
+        congestion_analysis[dest] = {
+            "shortest_path_egress": shortest_path_egress,
+            "shortest_path_capacity": capacity_of_shortest_path,
+            "demand": demand_for_dest,
+            "spillover_traffic_required": round(spillover_traffic, 2),
+            "traffic_on_spillover_paths": round(sent_on_spillover_paths, 2)
+        }
+
+    # --- 8. Format Return ---
+    total_demand = sum(T_dest.values())
+    total_sent = sum(v.varValue for v in x.values() if v.varValue)
     allocation = {f"{h}_{p}_to_{d}": v.varValue for (h, p, d), v in x.items() if v.varValue and v.varValue > 1e-6}
     
     return {
@@ -306,11 +345,10 @@ def solve_latency_lp(problem_data):
         "lp_status": LpStatus[prob.status],
         "total_latency_weighted_traffic": round(value(prob.objective), 2) if prob.objective else 0.0,
         "total_sent_traffic": round(total_sent, 2),
-        "total_unsent_traffic": round(total_unsent, 2),
-        "traffic_allocation": allocation
+        "total_unsent_traffic": round(total_demand - total_sent, 2),
+        "traffic_allocation": allocation,
+        "congestion_analysis": congestion_analysis
     }
-
-
 # --- MODEL 3 & 4: BEHAVIORAL SIMULATORS ---
 
 def run_behavioral_sim(problem_data, mode):
@@ -392,18 +430,18 @@ def main():
 
     # 1. ISP Optimal (Min Cost)
     print("1. Calculating ISP-Optimal (Min Cost)...")
-    min_cost_res = solve_cost_lp_sunk_costs(problem_data, "minimize")
-    all_results["isp_optimal"] = analyze_performance_of_result(problem_data, min_cost_res)
+    #min_cost_res = solve_cost_lp_sunk_costs(problem_data, "minimize")
+    #all_results["isp_optimal"] = analyze_performance_of_result(problem_data, min_cost_res)
 
     # 2. ISP Pessimal (Max Cost)
     print("2. Calculating ISP-Pessimal (Max Cost)...")
-    max_cost_res = solve_cost_lp_sunk_costs(problem_data, "maximize")
-    all_results["isp_pessimal"] = analyze_performance_of_result(problem_data, max_cost_res)
+    #max_cost_res = solve_cost_lp_sunk_costs(problem_data, "maximize")
+    #all_results["isp_pessimal"] = analyze_performance_of_result(problem_data, max_cost_res)
     
     # 3. End-Host Latency Optimal (LP-based Spill-over)
     print("3. Calculating End-Host Latency-Optimal (LP)...")
-    #latency_res = solve_latency_lp(problem_data)
-    #all_results["latency_optimal"] = analyze_performance_of_result(problem_data, latency_res)
+    latency_res = solve_latency_lp(problem_data)
+    all_results["latency_optimal"] = analyze_performance_of_result(problem_data, latency_res)
 
     # 4. Thundering Herd (Selfish End-Hosts)
     print("4. Simulating Thundering Herd (Selfish End-Hosts)...")

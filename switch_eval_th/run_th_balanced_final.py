@@ -10,7 +10,7 @@ def run_workflow():
     2. Calls the scenario runner script for each generated scenario.
     """
     # --- Configuration ---
-    scenario_generator_script = "scenario_gen_with_pp_final.py"
+    scenario_generator_script = "scenario_gen_full.py"
     scenario_runner_script = "run_all_scenarios_final.py"
     graph_file = "final_graph_link_types_balanced.json"
     traffic_file = "max_by_destination.csv"
@@ -19,11 +19,20 @@ def run_workflow():
     # Assumes scenario_gen_with_pp.py accepts:
     # --transit-base-cost, --peering-base-cost, --peering-variable-cost
     configurations = [
+        #{
+        #    "name": "balanced",
+        #    "transit_base_cost": 1,
+        #    "peering_base_cost": 1,
+        #    "peering_variable_cost": 1, # Low, but non-zero
+        #    "desc": "High Fixed Costs for Transit, Low for Peering",
+        #    "use_worst_case_links": False
+        #},
         {
-            "name": "balanced",
+            "name": "worst_case",
             "transit_base_cost": 1,
             "peering_base_cost": 1,
             "peering_variable_cost": 1, # Low, but non-zero
+            "use_worst_case_links": True,
             "desc": "High Fixed Costs for Transit, Low for Peering"
         },
         #{
@@ -56,7 +65,7 @@ def run_workflow():
         print(f"{'='*80}")
 
         # --- NEW: Loop to run with and without the --prefer-peering flag ---
-        for prefer_peering_flag in [True, False]:
+        for prefer_peering_flag in [False]: # [True, False]:
             mode_name = "with_prefer_peering" if prefer_peering_flag else "no_prefer_peering"
             mode_desc = "WITH --prefer-peering" if prefer_peering_flag else "WITHOUT --prefer-peering (default)"
 
@@ -76,9 +85,9 @@ def run_workflow():
             except OSError as e:
                 print(f"Error creating directories: {e}")
                 continue
-
+ 
             # --- 2. Loop through the cost factors and repetitions ---
-            for traffic_factor in range(2, 21):
+            for traffic_factor in range(1, 21):
                 print(f"\n--- Processing traffic_factor: {traffic_factor} ---")
                 for run_number in range(1, 10):
                     print(f"\n  - Starting run {run_number}/10 for factor {traffic_factor}...")
@@ -97,7 +106,8 @@ def run_workflow():
                         "-t", str(traffic_factor), # This factor shows how much the traffic is scaled
                         "--transit-base-cost", str(config["transit_base_cost"]),
                         "--peering-base-cost", str(config["peering_base_cost"]),
-                        "--peering-variable-cost", str(config["peering_variable_cost"])
+                        "--peering-variable-cost", str(config["peering_variable_cost"]),
+                        "--use_worst_case_links" if config.get("use_worst_case_links", False) else ""
                     ]
 
                     # --- NEW: Conditionally add the --prefer-peering flag ---
