@@ -17,12 +17,7 @@ switch_eval_round2/peering_transit_factor_high/scenarios/
 switch_eval_round2/peering_transit_factor_low/results/
 switch_eval_round2/peering_transit_factor_low/scenarios/
 
-switch_eval_round3/peering_transit_factor_balanced/results/
-switch_eval_round3/peering_transit_factor_balanced/scenarios/
-switch_eval_round3/peering_transit_factor_high/results/
-switch_eval_round3/peering_transit_factor_high/scenarios/
-switch_eval_round3/peering_transit_factor_low/results/
-switch_eval_round3/peering_transit_factor_low/scenarios/
 
 scion-path-graph/simulation_results/
-switch_eval_round3/results/
+switch_eval_cost/results/
+switch_eval_th/results/
