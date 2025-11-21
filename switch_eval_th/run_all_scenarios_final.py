@@ -349,6 +349,122 @@ def solve_latency_lp(problem_data):
         "traffic_allocation": allocation,
         "congestion_analysis": congestion_analysis
     }
+
+def solve_fair_share_latency_lp(problem_data, num_lowest_paths=2):
+    """
+    Solves an LP model to find the traffic allocation that minimizes total
+    latency-weighted traffic while ensuring a fair share of traffic across a
+    specified number of the lowest latency paths for each destination.
+    It also calculates congestion based on the combined capacity of these paths.
+    """
+    # --- 1. Extract data from input dict ---
+    H = problem_data.get("endhosts", [])
+    E = problem_data.get("egress_interfaces", [])
+    D = problem_data.get("destinations", [])
+    paths_per_endhost = problem_data.get("paths_per_endhost", {})
+    path_map = problem_data.get("path_to_egress_mapping", {})
+    reachability = problem_data.get("egress_to_destination_reachability", {})
+    U = problem_data.get("endhost_uplinks", {})
+    Cap = problem_data.get("egress_capacities", {})
+    T_dest = problem_data.get("traffic_per_destination", {})
+    Latencies = problem_data.get("egress_latencies", {})
+
+    # --- 2. Create LP Problem ---
+    prob = LpProblem("Fair_Share_Latency_Minimization_LP", LpMinimize)
+
+    # --- 3. Define Variables ---
+    x_vars_keys = []
+    for h in H:
+        for p in paths_per_endhost.get(h, []):
+            egress = path_map.get(p)
+            if not egress or egress not in E:
+                continue
+            for d in reachability.get(egress, []):
+                if d in D:
+                    x_vars_keys.append((h, p, d))
+
+    if not x_vars_keys:
+        return {"error": "No valid variables for LP model could be created."}
+
+    x = LpVariable.dicts("x", x_vars_keys, lowBound=0)
+
+    # --- 4. Define Objective Function ---
+    prob += lpSum(x[(h, p, d)] * Latencies.get(path_map.get(p), float('inf')) for h, p, d in x_vars_keys), "Total_Latency_Weighted_Traffic"
+
+    # --- 5. Define Constraints ---
+    for dest in D:
+        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if d == dest) == T_dest.get(dest, 0), f"Satisfy_Demand_for_{dest}"
+
+    for h_host in H:
+        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if h == h_host) <= U.get(h_host, 0), f"Uplink_Capacity_{h_host}"
+
+    for e_egress in E:
+        traffic_on_egress = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == e_egress)
+        prob += traffic_on_egress <= Cap.get(e_egress, 0), f"Egress_Capacity_{e_egress}"
+
+    # --- 5a. Fair Share Constraints ---
+    for dest in D:
+        # Identify the top N lowest latency egresses for the destination
+        eligible_egresses = [e for e, dests in reachability.items() if dest in dests]
+        sorted_egresses = sorted(eligible_egresses, key=lambda e: Latencies.get(e, float('inf')))
+        lowest_latency_paths = sorted_egresses[:num_lowest_paths]
+
+        if len(lowest_latency_paths) > 1:
+            # Add constraints to equalize traffic on the lowest latency paths
+            for i in range(len(lowest_latency_paths) - 1):
+                egress1 = lowest_latency_paths[i]
+                egress2 = lowest_latency_paths[i+1]
+
+                traffic_on_egress1 = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == egress1 and d == dest)
+                traffic_on_egress2 = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == egress2 and d == dest)
+                prob += traffic_on_egress1 == traffic_on_egress2, f"Fair_Share_{dest}_{egress1}_{egress2}"
+
+    # --- 6. Solve Problem ---
+    prob.solve()
+
+    # --- 7. Congestion Analysis ---
+    congestion_analysis = {}
+    for dest in D:
+        eligible_egresses = [e for e, dests in reachability.items() if dest in dests]
+        sorted_egresses = sorted(eligible_egresses, key=lambda e: Latencies.get(e, float('inf')))
+        lowest_latency_paths = sorted_egresses[:num_lowest_paths]
+
+        if not lowest_latency_paths:
+            congestion_analysis[dest] = {"error": "Could not determine any path."}
+            continue
+
+        combined_capacity = sum(Cap.get(e, 0) for e in lowest_latency_paths)
+        demand_for_dest = T_dest.get(dest, 0)
+        spillover_traffic = max(0, demand_for_dest - combined_capacity)
+
+        sent_on_spillover_paths = sum(
+            val.varValue for (h, p, d), val in x.items()
+            if d == dest and path_map.get(p) not in lowest_latency_paths and val.varValue and val.varValue > 1e-6
+        )
+
+        congestion_analysis[dest] = {
+            "lowest_latency_paths": lowest_latency_paths,
+            "combined_capacity_of_lowest_paths": combined_capacity,
+            "demand": demand_for_dest,
+            "spillover_traffic_required": round(spillover_traffic, 2),
+            "traffic_on_spillover_paths": round(sent_on_spillover_paths, 2)
+        }
+
+    # --- 8. Format Return ---
+    total_demand = sum(T_dest.values())
+    total_sent = sum(v.varValue for v in x.values() if v.varValue)
+    allocation = {f"{h}_{p}_to_{d}": v.varValue for (h, p, d), v in x.items() if v.varValue and v.varValue > 1e-6}
+
+    return {
+        "scenario_name": f"End-Host Latency-Optimal with Fair Share on {num_lowest_paths} Paths (LP)",
+        "lp_status": LpStatus[prob.status],
+        "total_latency_weighted_traffic": round(value(prob.objective), 2) if prob.objective else 0.0,
+        "total_sent_traffic": round(total_sent, 2),
+        "total_unsent_traffic": round(total_demand - total_sent, 2),
+        "traffic_allocation": allocation,
+        "congestion_analysis": congestion_analysis
+    }
+
 # --- MODEL 3 & 4: BEHAVIORAL SIMULATORS ---
 
 def run_behavioral_sim(problem_data, mode):
@@ -442,6 +558,14 @@ def main():
     print("3. Calculating End-Host Latency-Optimal (LP)...")
     latency_res = solve_latency_lp(problem_data)
     all_results["latency_optimal"] = analyze_performance_of_result(problem_data, latency_res)
+
+    print("3. Calculating End-Host Fair Share Latency-Optimal (numpaths = 2) (LP)...") 
+    latency_res = solve_fair_share_latency_lp(problem_data, 2)
+    all_results["fair_share_latency_optimal"] = analyze_performance_of_result(problem_data, latency_res)
+
+    print("3. Calculating End-Host Fair Share Latency-Optimal (numpaths = 3) (LP)...")
+    latency_res = solve_fair_share_latency_lp(problem_data, 3)
+    all_results["fair_share_latency_optimal_3"] = analyze_performance_of_result(problem_data, latency_res)
 
     # 4. Thundering Herd (Selfish End-Hosts)
     print("4. Simulating Thundering Herd (Selfish End-Hosts)...")
