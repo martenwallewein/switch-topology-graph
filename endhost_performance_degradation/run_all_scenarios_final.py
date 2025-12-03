@@ -526,106 +526,6 @@ def run_behavioral_sim(problem_data, mode):
         "traffic_allocation": dict(allocation)
     }
 
-def solve_waterfilling_latency_lp(problem_data, max_paths=None):
-    """
-    Solves an LP model where traffic "spills over" from the best path to the 
-    second best path, etc., purely based on capacity and latency.
-    
-    Args:
-        max_paths (int): If set, limits the available paths to the top N lowest 
-                         latency paths per destination. If None, uses all paths.
-    """
-    # --- 1. Extract data ---
-    H = problem_data.get("endhosts", [])
-    E = problem_data.get("egress_interfaces", [])
-    D = problem_data.get("destinations", [])
-    paths_per_endhost = problem_data.get("paths_per_endhost", {})
-    path_map = problem_data.get("path_to_egress_mapping", {})
-    reachability = problem_data.get("egress_to_destination_reachability", {})
-    U = problem_data.get("endhost_uplinks", {})
-    Cap = problem_data.get("egress_capacities", {})
-    T_dest = problem_data.get("traffic_per_destination", {})
-    Latencies = problem_data.get("egress_latencies", {})
-
-    # --- 2. Filter Variables (The "Select N Best" Logic) ---
-    # We pre-calculate valid (host, path, dest) tuples to restrict the LP 
-    # to only consider the top N paths per destination.
-    
-    valid_keys = set()
-    
-    # Pre-compute valid egresses per destination sorted by latency
-    dest_to_sorted_egresses = {}
-    for d in D:
-        # Find all egresses that can reach this destination
-        eligible_egresses = [e for e, dests in reachability.items() if d in dests]
-        # Sort by latency
-        sorted_egresses = sorted(eligible_egresses, key=lambda e: Latencies.get(e, float('inf')))
-        
-        # Slice to max_paths if provided
-        if max_paths:
-            sorted_egresses = sorted_egresses[:max_paths]
-            
-        dest_to_sorted_egresses[d] = set(sorted_egresses)
-
-    # Generate the LP keys based on the filtered list
-    x_vars_keys = []
-    for h in H:
-        for p in paths_per_endhost.get(h, []):
-            egress = path_map.get(p)
-            if not egress or egress not in E:
-                continue
-            
-            # Check reachability and if this egress is in the "Top N" for that dest
-            for d in reachability.get(egress, []):
-                if d in D and egress in dest_to_sorted_egresses.get(d, set()):
-                    x_vars_keys.append((h, p, d))
-
-    if not x_vars_keys:
-        return {"error": "No valid variables for LP model could be created."}
-
-    # --- 3. Create LP Problem ---
-    prob = LpProblem("Waterfilling_Latency_LP", LpMinimize)
-    x = LpVariable.dicts("x", x_vars_keys, lowBound=0)
-
-    # --- 4. Objective Function ---
-    # Minimizing (Traffic * Latency) automatically enforces "Water-filling".
-    # The solver will fill the lowest latency variable first to minimize this sum.
-    prob += lpSum(x[(h, p, d)] * Latencies.get(path_map.get(p), float('inf')) for h, p, d in x_vars_keys)
-
-    # --- 5. Constraints ---
-    
-    # a) Satisfy Demand
-    for dest in D:
-        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if d == dest) == T_dest.get(dest, 0)
-
-    # b) Uplink Capacity
-    for h_host in H:
-        prob += lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if h == h_host) <= U.get(h_host, 0)
-
-    # c) Egress Capacity
-    for e_egress in E:
-        traffic_on_egress = lpSum(x[(h, p, d)] for h, p, d in x_vars_keys if path_map.get(p) == e_egress)
-        prob += traffic_on_egress <= Cap.get(e_egress, 0)
-
-    # Note: NO "fair share" equality constraints are added here.
-
-    # --- 6. Solve ---
-    prob.solve(pulp.PULP_CBC_CMD(msg=0)) # msg=0 to silence solver output
-
-    # --- 7. Format Output ---
-    total_demand = sum(T_dest.values())
-    total_sent = sum(v.varValue for v in x.values() if v.varValue)
-    allocation = {f"{h}_{p}_to_{d}": v.varValue for (h, p, d), v in x.items() if v.varValue and v.varValue > 1e-6}
-
-    return {
-        "scenario_name": f"Water-filling (Spillover) on top {max_paths if max_paths else 'All'} paths",
-        "lp_status": LpStatus[prob.status],
-        "total_latency_weighted_traffic": round(value(prob.objective), 2) if prob.objective else 0.0,
-        "total_sent_traffic": round(total_sent, 2),
-        "total_unsent_traffic": round(total_demand - total_sent, 2),
-        "traffic_allocation": allocation
-    }
-
 # --- MAIN EXECUTION ---
 
 def main():
@@ -666,18 +566,6 @@ def main():
     print("3. Calculating End-Host Fair Share Latency-Optimal (numpaths = 3) (LP)...")
     latency_res = solve_fair_share_latency_lp(problem_data, 3)
     all_results["fair_share_latency_optimal_3"] = analyze_performance_of_result(problem_data, latency_res)
-
-    print("6. Calculating Water-filling (Spillover) Logic (Max 3 paths)...")
-    # This simulates independent congestion controlled flows that pick the best
-    # available path among the top 3, moving to the next only when necessary.
-    waterfill_res = solve_waterfilling_latency_lp(problem_data, max_paths=2)
-    all_results["waterfilling_optimal_2"] = analyze_performance_of_result(problem_data, waterfill_res)
-
-    print("6. Calculating Water-filling (Spillover) Logic (Max 3 paths)...")
-    # This simulates independent congestion controlled flows that pick the best
-    # available path among the top 3, moving to the next only when necessary.
-    waterfill_res = solve_waterfilling_latency_lp(problem_data, max_paths=3)
-    all_results["waterfilling_optimal_3"] = analyze_performance_of_result(problem_data, waterfill_res)
 
     # 4. Thundering Herd (Selfish End-Hosts)
     print("4. Simulating Thundering Herd (Selfish End-Hosts)...")

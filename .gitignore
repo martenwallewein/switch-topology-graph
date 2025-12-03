@@ -21,3 +21,5 @@ switch_eval_round2/peering_transit_factor_low/scenarios/
 scion-path-graph/simulation_results/
 switch_eval_cost/results/
 switch_eval_th/results/
+switch_eval_th/results2/
+endhost_performance_degradation/results/
