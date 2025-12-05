@@ -77,12 +77,12 @@ def analyze_and_plot_congestion():
     # IMPORTANT: Update the 'path' for each scenario to point to your results folders.
     scenarios = {
         "Thundering Herd (Path Unlocking)": {
-            "path": "results/worst_case/no_prefer_peering/results",
+            "path": "results/worst_case_best_links/no_prefer_peering/results",
             "color": "blue",
             "linestyle": "solid"
         },
         "Thundering Herd (Prefer Peering)": {
-            "path": "results/worst_case/with_prefer_peering/results",
+            "path": "results/worst_case_best_links/with_prefer_peering/results",
             "color": "red",
             "linestyle": "solid"
         }

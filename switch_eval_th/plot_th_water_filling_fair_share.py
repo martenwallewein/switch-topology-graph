@@ -7,9 +7,8 @@ import numpy as np
 
 def process_traffic_data_from_folder(results_dir):
     """
-    Scans a directory for result files and calculates the spillover traffic ratio
-    for 'latency_optimal', 'fair_share_latency_optimal', etc.
-    (Logic preserved from input script)
+    Scans a directory for result files and calculates the ACTUAL spillover traffic 
+    ratio (traffic moved to non-best paths) for the different scenarios.
     """
     if not os.path.isdir(results_dir):
         print(f"Warning: Directory not found, skipping: '{results_dir}'")
@@ -17,12 +16,11 @@ def process_traffic_data_from_folder(results_dir):
 
     # This dictionary will hold the results for different analysis blocks
     results = {
-        'latency_optimal': defaultdict(list),
-        'waterfilling_optimal_2': defaultdict(list),
-        'waterfilling_optimal_3': defaultdict(list)
+        'latency_optimal': defaultdict(list),       # Maps to Thundering Herd (Max 1 path)
+        'waterfilling_optimal_2': defaultdict(list), # Maps to Waterfilling (Max 2 paths)
+        'waterfilling_optimal_3': defaultdict(list)  # Maps to Waterfilling (Max 3 paths)
     }
     
-    # Regex handles integer and float numbers
     filename_pattern = re.compile(r"result_factor_(\d+(?:\.\d+)?)_run_(\d+)\.json")
 
     print(f"--> Processing folder: {results_dir}")
@@ -36,22 +34,23 @@ def process_traffic_data_from_folder(results_dir):
                 with open(file_path, 'r') as f:
                     data = json.load(f)
 
-                # Process multiple blocks from the same file
                 for block_name in results.keys():
                     if block_name not in data:
-                        # Silent info or debug print if needed
-                        # print(f"    - Info: '{block_name}' key not found in '{filename}'...")
                         continue
                     
                     analysis_data = data[block_name]
                     total_sent_traffic = analysis_data.get('total_sent_traffic', 0)
                     congestion_analysis = analysis_data.get('congestion_analysis', {})
 
+                    # --- CRITICAL FIX IS HERE ---
+                    # We sum 'traffic_on_spillover_paths' (Actual LP behavior)
+                    # instead of 'spillover_traffic_required' (Theoretical constant).
                     total_spillover = sum(
-                        dest_data.get('spillover_traffic_required', 0)
+                        dest_data.get('traffic_on_spillover_paths', 0)
                         for dest_data in congestion_analysis.values()
                     )
 
+                    # Calculate Percentage
                     if total_sent_traffic > 0:
                         spillover_ratio = total_spillover / total_sent_traffic
                         results[block_name][traffic_factor].append(spillover_ratio)
@@ -67,10 +66,10 @@ def process_traffic_data_from_folder(results_dir):
 def analyze_and_plot_congestion():
     """
     Analyzes results from a scenario folder and generates a comparative plot
-    showing the spillover ratio for different analysis methods.
+    showing the traffic offloaded to secondary paths.
     """
     
-    # --- 1. Style Configuration for LaTeX/Academic Paper ---
+    # --- 1. Style Configuration ---
     plt.rcParams.update({
         'font.family': 'serif',
         'font.size': 8,
@@ -84,26 +83,25 @@ def analyze_and_plot_congestion():
     })
 
     # Configuration: Scenario path
+    # Make sure this matches your actual output directory
     scenario = {
-        "path": "results/worst_case/no_prefer_peering/results",
+        "path": "results/worst_case/with_prefer_peering/results", 
     }
-    output_plot_file = "congestion_spillover_comparison_compressed2.pdf"
+    output_plot_file = "congestion_spillover_comparison.pdf"
     
-    # Plot styles for each analysis block
-    # Labels shortened slightly to fit single column width
     plot_configs = {
         "latency_optimal": {
-            "label": "Thundering Herd",
+            "label": "Thundering Herd (Selfish)",
             "color": "red",
-            "linestyle": "-"
+            "linestyle": "--" # Dashed to indicate it's the baseline/problem
         },
         "waterfilling_optimal_2": {
-            "label": "WF 2 Paths",
+            "label": "Water-filling (2 Paths)",
             "color": "dodgerblue",
             "linestyle": "-"
         },
         "waterfilling_optimal_3": {
-            "label": "WF 3 Paths",
+            "label": "Water-filling (3 Paths)",
             "color": "green",
             "linestyle": "-"
         }
@@ -112,21 +110,21 @@ def analyze_and_plot_congestion():
     # --- 2. Process data ---
     all_block_results = process_traffic_data_from_folder(scenario["path"])
 
-    if not all_block_results:
-        print("\nNo data found. Generating dummy data for verification...")
-        # Optional: Dummy data generation if path doesn't exist
+    if not all_block_results or not any(all_block_results.values()):
+        print("\nNo data found. Generating DUMMY data for visualization verification...")
+        # Dummy data showing expected behavior:
+        # Red line flat at 0. Blue/Green lines rising.
         for block in plot_configs:
-            # Simulate different congestion curves
-            start = 1.5 if "latency" in block and "fair" not in block else 2.0
+            is_static = "latency" in block
+            start = 2.0
             all_block_results[block] = {
-                i/2.0: [max(0, (i/2.0 - start) * 0.1) + np.random.normal(0, 0.005) for _ in range(5)]
-                for i in range(2, 10)
+                i/2.0: [0.0 if is_static else max(0, (i/2.0 - start) * 0.15) + np.random.normal(0, 0.002) for _ in range(3)]
+                for i in range(2, 12)
             }
 
-    print("\nFolder processed. Generating condensed plot...")
+    print("\nFolder processed. Generating plot...")
 
-    # --- 3. Plotting the results ---
-    # Standard single-column size (3.5 inches wide)
+    # --- 3. Plotting ---
     fig, ax = plt.subplots(figsize=(3.5, 2.6))
     all_scenario_factors = set()
 
@@ -138,10 +136,6 @@ def analyze_and_plot_congestion():
         if not config:
             continue
         
-        color = config["color"]
-        linestyle = config["linestyle"]
-        label = config["label"]
-        
         sorted_factors = sorted(factor_data.keys())
         all_scenario_factors.update(sorted_factors)
 
@@ -149,36 +143,33 @@ def analyze_and_plot_congestion():
         average_ratios_pct = [np.mean(factor_data[f]) * 100 if factor_data[f] else 0 for f in sorted_factors]
         std_devs_pct = [np.std(factor_data[f]) * 100 if factor_data[f] else 0 for f in sorted_factors]
         
-        # Scatter points (background, faint)
+        # Scatter points (raw data)
         for factor in sorted_factors:
             y_values = [v * 100 for v in factor_data[factor]]
             ax.scatter([factor] * len(y_values), y_values,
-                       alpha=0.15, color=color, s=10, marker='.', linewidths=0, zorder=1)
+                       alpha=0.15, color=config["color"], s=5, marker='.', zorder=1)
 
         # Error bars and trend line
         ax.errorbar(sorted_factors, average_ratios_pct,
                     yerr=std_devs_pct,
                     marker='o',
                     markersize=3,
-                    linestyle=linestyle,
-                    color=color,
-                    label=label,
-                    capsize=2,       # Small caps
-                    elinewidth=0.8,  # Thin error lines
+                    linestyle=config["linestyle"],
+                    color=config["color"],
+                    label=config["label"],
+                    capsize=2,
+                    elinewidth=0.8,
                     capthick=0.8,
                     zorder=2)
 
-    # --- 4. Formatting the plot ---
-    # Concise labels
+    # --- 4. Formatting ---
     ax.set_xlabel('Traffic Multiplier')
-    ax.set_ylabel('Congestion (% of Total Traffic)')
+    # Updated Label to be more precise
+    ax.set_ylabel('Traffic Offloaded to Secondary Paths (%)')
     
     ax.grid(True, which='major', linestyle='--', linewidth=0.5, alpha=0.7)
+    ax.legend(loc='upper left', frameon=True, framealpha=0.9, fancybox=False, edgecolor='white')
     
-    # Legend
-    ax.legend(loc='best', frameon=True, framealpha=0.9, fancybox=False, edgecolor='white')
-    
-    # Ticks
     if all_scenario_factors:
         sorted_list = sorted(list(all_scenario_factors))
         ax.set_xticks(sorted_list)
@@ -190,7 +181,6 @@ def analyze_and_plot_congestion():
     plt.savefig(output_plot_file, dpi=300)
     print(f"\nPlot successfully saved to '{output_plot_file}'")
     plt.show()
-
 
 if __name__ == "__main__":
     analyze_and_plot_congestion()

@@ -28,7 +28,7 @@ def run_workflow():
         #    "use_worst_case_links": False
         #},
         {
-            "name": "worst_case",
+            "name": "worst_case_best_links",
             "transit_base_cost": 1,
             "peering_base_cost": 1,
             "peering_variable_cost": 1, # Low, but non-zero
@@ -65,7 +65,7 @@ def run_workflow():
         print(f"{'='*80}")
 
         # --- NEW: Loop to run with and without the --prefer-peering flag ---
-        for prefer_peering_flag in [True]: # [True, False]:
+        for prefer_peering_flag in [True, False]: # [True, False]:
             mode_name = "with_prefer_peering" if prefer_peering_flag else "no_prefer_peering"
             mode_desc = "WITH --prefer-peering" if prefer_peering_flag else "WITHOUT --prefer-peering (default)"
 

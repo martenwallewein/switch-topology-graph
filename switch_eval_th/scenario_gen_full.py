@@ -143,7 +143,7 @@ def generate_traffic_scenario(
         print("Got capacity " + str(capacity_gbps) + " for interface " + iface_id)
         egress_capacities[iface_id] = capacity_gbps
         if iface in transit_links:
-            egress_latencies[iface_id] = random.uniform(50, 70)
+            egress_latencies[iface_id] = random.uniform(10, 20) # random.uniform(5, 10) # random.uniform(50, 70)
             egress_dynamic_costs[iface_id] = cost_difference_factor * random.uniform(0.9, 1.1)
             
             if transit_base_cost is not None:
@@ -191,7 +191,7 @@ def generate_traffic_scenario(
         final_latencies = {}
         for dest, links in destination_to_egress_links.items():
             # Sort links for this destination by their capacity (ascending)
-            sorted_links = sorted(links, key=lambda link_id: egress_capacities[link_id])
+            sorted_links = sorted(links, key=lambda link_id: egress_capacities[link_id], reverse=True) # TODO: Remove reverse=True for worst-case?
 
             # Assign latencies based on sorted order (lowest capacity gets lowest latency)
             for i, link_id in enumerate(sorted_links):
