@@ -12,8 +12,8 @@ def run_workflow():
     # --- Configuration ---
     scenario_generator_script = "scenario_gen_full.py"
     scenario_runner_script = "run_all_scenarios_final.py"
-    graph_file = "final_graph_link_types_balanced.json"
-    traffic_file = "max_by_destination.csv"
+    graph_file = "final_graph_external.json"
+    traffic_file = "avg_by_destination_david.csv"
 
     # --- Define the 4 different experiment configurations to run ---
     # Assumes scenario_gen_with_pp.py accepts:
@@ -28,11 +28,11 @@ def run_workflow():
         #    "use_worst_case_links": False
         #},
         {
-            "name": "worst_case_best_links",
+            "name": "best_path_new_2",
             "transit_base_cost": 1,
             "peering_base_cost": 1,
             "peering_variable_cost": 1, # Low, but non-zero
-            "use_worst_case_links": True,
+            "use_worst_case_links": False,
             "desc": "High Fixed Costs for Transit, Low for Peering"
         },
         #{
@@ -107,7 +107,7 @@ def run_workflow():
                         "--transit-base-cost", str(config["transit_base_cost"]),
                         "--peering-base-cost", str(config["peering_base_cost"]),
                         "--peering-variable-cost", str(config["peering_variable_cost"]),
-                        "--use_worst_case_links" if config.get("use_worst_case_links", False) else ""
+                        # "--single-path-per-dest",
                     ]
 
                     # --- NEW: Conditionally add the --prefer-peering flag ---

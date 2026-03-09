@@ -2,11 +2,11 @@ import json
 import argparse
 import random
 import pandas as pd
+from collections import defaultdict, Counter
 
 def parse_capacity(capacity_str):
     """Parses a capacity string (e.g., '100G', '200 Gbps') and returns the value in Gbps."""
     if not isinstance(capacity_str, str):
-        # Return if it's already a number (float/int)
         return float(capacity_str)
     
     capacity_str = capacity_str.lower().replace(' ', '').replace('b/s', '')
@@ -29,32 +29,17 @@ def generate_traffic_scenario(
     transit_base_cost=None,
     peering_base_cost=None,
     peering_variable_cost=None,
-    use_worst_case_links=False
+    use_worst_case_links=False,
+    single_path_per_dest=False
 ):
     """
-    Generates a realistic traffic scenario with differentiated base and dynamic costs
-    for transit vs. peering links.
-
-    Args:
-        graph_data (dict): The graph data in the specified format.
-        traffic_df (pd.DataFrame): A pandas DataFrame containing the traffic data.
-        traffic_increase_factor (float): A factor to scale the traffic volumes.
-        cost_difference_factor (float): The multiplier for dynamic transit costs relative to a base cost.
-        prefer_peering (bool): If True, do not expose transit paths to destinations reachable via peering.
-        transit_base_cost (float, optional): If provided, overrides default transit base costs.
-        peering_base_cost (float, optional): If provided, overrides default peering base costs.
-        peering_variable_cost (float, optional): If provided, overrides default peering variable costs.
-        use_worst_case_links (bool): If True, sets latency to correlate with capacity, making low-capacity links have the lowest latency.
-
-    Returns:
-        dict: The generated traffic scenario.
+    Generates a realistic traffic scenario.
     """
 
-    # 1. Identify network components from graph data
+    # 1. Identify network components
     endhosts = [node['id'] for node in graph_data['nodes'] if node['type'] == 'internal']
     egress_interfaces = [edge for edge in graph_data['edges'] if edge.get('edge_type') == 'external']
 
-    # Differentiate between transit and peering links for cost assignment
     transit_links = [iface for iface in egress_interfaces if iface.get('link_type') == 'transit']
     peering_links = [iface for iface in egress_interfaces if iface.get('link_type') == 'peering']
 
@@ -63,34 +48,32 @@ def generate_traffic_scenario(
     print(f"Found {len(peering_links)} peering links.")
     print("-----------------------------\n")
     
-    # 2. Load and scale traffic data from the DataFrame
+    # 2. Load and scale traffic data
     if 'to' in traffic_df.columns:
         traffic_df.set_index('to', inplace=True)
     traffic_per_destination = (traffic_df['traffic_out_gbps'] * traffic_increase_factor).to_dict()
     destinations = list(traffic_per_destination.keys())
 
-    # 3. Define egress reachability based on link type
+    # 3. Define egress reachability
     GRAPH_TO_CSV_NAME_MAP = {
-        "g\u00e9ant": "geant", "ams-ix": "amsix", "de-cix": "decix", "belw\u00fc": "belwue2",
+        "g\u00e9ant": "geant", "ams-ix": "ams-ix", "de-cix": "de-cix", "belw\u00fc": "belwue",
         "cern": "cern", "interxion": "interxion", "swissix": "swissix", "cixp": "cixp",
-        "cogent": "cogent", "lumen": "lumen", "level3": "level3", "telia": "telia", "tix": "tix"
+        "cogent": "cogent", "lumen": "lumen", "level3": "level3", "telia": "telia", "tix": "tix",
+        "geant ias": "g\u00e9ant", 
     }
 
     egress_to_destination_reachability = {}
     peering_destinations = set()
 
-    # First, determine all destinations reachable via any peering link
     for iface in peering_links:
         peer_name = iface.get('to')
         mapped_dest_name = GRAPH_TO_CSV_NAME_MAP.get(peer_name, peer_name)
         if mapped_dest_name in destinations:
             peering_destinations.add(mapped_dest_name)
 
-    # Now, build the reachability for all interfaces
     for iface in egress_interfaces:
         iface_id = iface['id']
         if iface in peering_links:
-            # Peering links can only reach the directly connected peer
             peer_name = iface.get('to')
             mapped_dest_name = GRAPH_TO_CSV_NAME_MAP.get(peer_name, peer_name)
             if mapped_dest_name in destinations:
@@ -98,10 +81,7 @@ def generate_traffic_scenario(
             else:
                 egress_to_destination_reachability[iface_id] = []
         else:  # Transit link
-            # A transit link can reach all peering destinations plus its own transit neighbor.
             reachable_destinations = list(peering_destinations)
-            
-            # Add the specific transit provider for this link
             transit_provider_name = iface.get('to')
             mapped_transit_name = GRAPH_TO_CSV_NAME_MAP.get(transit_provider_name, transit_provider_name)
             
@@ -110,40 +90,37 @@ def generate_traffic_scenario(
             
             egress_to_destination_reachability[iface_id] = reachable_destinations
 
-    # 4. If prefer_peering is True, remove peering destinations from transit reachability
+    # 4. Filter peering if preferred
     if prefer_peering:
         print("--- 'prefer_peering' is enabled ---")
         for iface in transit_links:
             iface_id = iface['id']
             original_reachability = egress_to_destination_reachability[iface_id]
-            # Filter out destinations that are available via peering
             filtered_reachability = [dest for dest in original_reachability if dest not in peering_destinations]
             egress_to_destination_reachability[iface_id] = filtered_reachability
-        print(f"Removed {len(peering_destinations)} peering destinations from all transit link paths.")
+        print(f"Removed peering destinations from transit paths.")
         print("--------------------------------------\n")
 
 
-    # 5. Assign latencies and realistic costs (Base and Dynamic)
+    # 5. Assign Costs and Latencies
     egress_latencies = {}
     egress_base_costs = {}
     egress_dynamic_costs = {}
     egress_capacities = {}
 
-    # Define cost tiers based on capacity (in Gbps)
     BASE_TRANSIT_COST_10G = 2000
     BASE_TRANSIT_COST_100G = 10000
     BASE_TRANSIT_COST_400G = 30000
     BASE_PEERING_PORT_COST = 500
-    BASE_DYNAMIC_COST_UNIT = 1.0
 
     print("--- Generating Costs and Latencies ---")
     for iface in egress_interfaces:
         iface_id = iface['id']
         capacity_gbps = parse_capacity(iface.get('capacity') or iface.get('link_capacity', '0'))
-        print("Got capacity " + str(capacity_gbps) + " for interface " + iface_id)
         egress_capacities[iface_id] = capacity_gbps
+        
         if iface in transit_links:
-            egress_latencies[iface_id] = random.uniform(10, 20) # random.uniform(5, 10) # random.uniform(50, 70)
+            egress_latencies[iface_id] = random.uniform(10, 20) # random.uniform(5, 10)
             egress_dynamic_costs[iface_id] = cost_difference_factor * random.uniform(0.9, 1.1)
             
             if transit_base_cost is not None:
@@ -157,7 +134,7 @@ def generate_traffic_scenario(
                     egress_base_costs[iface_id] = BASE_TRANSIT_COST_400G
             
         else:  # Peering link
-            egress_latencies[iface_id] = random.uniform(10, 20)
+            egress_latencies[iface_id] = random.uniform(5, 10) # random.uniform(10, 20)
             egress_dynamic_costs[iface_id] = random.uniform(0.9, 1.1)
             
             if peering_base_cost is not None:
@@ -165,20 +142,9 @@ def generate_traffic_scenario(
             else: 
                 egress_base_costs[iface_id] = BASE_PEERING_PORT_COST
     
-    print("Example Costs Generated:")
-    if transit_links:
-        ex_tr = transit_links[0]['id']
-        print(f" - Transit Link '{ex_tr}': Base Cost = ${egress_base_costs.get(ex_tr, 'N/A')}, Dynamic Cost = {egress_dynamic_costs.get(ex_tr, 'N/A')}/Gbps")
-    if peering_links:
-        ex_pr = peering_links[0]['id']
-        print(f" - Peering Link '{ex_pr}': Base Cost = ${egress_base_costs.get(ex_pr, 'N/A')}, Dynamic Cost = {egress_dynamic_costs.get(ex_pr, 'N/A')}/Gbps")
-    print("--------------------------------------\n")
-
-    # --- NEW LOGIC ---
-    # 6. If use_worst_case_links is True, override latencies based on capacity
+    # 6. Apply worst-case link logic
     if use_worst_case_links:
         print("--- Applying worst-case link logic ---")
-        # Invert reachability to map destinations to their available egress links
         destination_to_egress_links = {}
         for iface_id, destinations_list in egress_to_destination_reachability.items():
             for dest in destinations_list:
@@ -186,41 +152,88 @@ def generate_traffic_scenario(
                     destination_to_egress_links[dest] = []
                 destination_to_egress_links[dest].append(iface_id)
 
-        # For each destination, sort its links by capacity and assign new latencies.
-        # A link's final latency will be the minimum it's assigned across all destinations it can reach.
         final_latencies = {}
         for dest, links in destination_to_egress_links.items():
-            # Sort links for this destination by their capacity (ascending)
-            sorted_links = sorted(links, key=lambda link_id: egress_capacities[link_id], reverse=True) # TODO: Remove reverse=True for worst-case?
-
-            # Assign latencies based on sorted order (lowest capacity gets lowest latency)
+            sorted_links = sorted(links, key=lambda link_id: egress_capacities[link_id], reverse=True)
             for i, link_id in enumerate(sorted_links):
-                # Use a simple ascending latency scheme, e.g., 10, 11, 12...
                 new_latency = 10.0 + i
-                
-                # If the link already has a latency assigned (from another destination's sort),
-                # keep the lower of the two to ensure it remains attractive.
                 if link_id not in final_latencies or new_latency < final_latencies[link_id]:
                     final_latencies[link_id] = new_latency
         
-        # Override the original latencies with the new worst-case latencies.
-        # For any links that weren't part of the mapping, their original random latency is kept.
         for link_id, latency in final_latencies.items():
             egress_latencies[link_id] = latency
-        
-        print("Worst-case latencies assigned based on link capacity.")
+        print("Worst-case latencies assigned.")
         print("--------------------------------------\n")
-    # --- END OF NEW LOGIC ---
 
-    # 7. Build the final scenario dictionary
+    # --- UPDATED LOGIC: STRICT 1-TO-1 LEAST-USED ASSIGNMENT ---
+    final_reachability_map = egress_to_destination_reachability
+    
+    if single_path_per_dest:
+        print("--- Applying Strict 1-Path Per Host/Dest with Global Load Balancing ---")
+        
+        # 1. Map Destination -> [List of Valid Interfaces]
+        dest_to_valid_ifaces = defaultdict(list)
+        for iface_id, dests in egress_to_destination_reachability.items():
+            for d in dests:
+                dest_to_valid_ifaces[d].append(iface_id)
+        
+        # Sort for determinism
+        for d in dest_to_valid_ifaces:
+            dest_to_valid_ifaces[d].sort()
+
+        # 2. Track usage of interfaces globally to force distribution
+        # This ensures that even if we have 1 host, we rotate through interfaces 
+        # as we iterate through destinations.
+        interface_usage_counts = Counter({iface['id']: 0 for iface in egress_interfaces})
+        
+        # 3. Build Path-Specific Reachability
+        path_specific_reachability = {}
+        # Pre-fill keys
+        for host in endhosts:
+            for iface in egress_interfaces:
+                pid = f"p_{host}_{iface['id']}"
+                path_specific_reachability[pid] = []
+
+        # 4. Iterate and Assign
+        # We iterate hosts then destinations. For every pair, we pick the interface
+        # that is valid for that destination AND has the lowest global usage so far.
+        for host in endhosts:
+            for dest in destinations:
+                valid_ifaces = dest_to_valid_ifaces.get(dest, [])
+                
+                if not valid_ifaces:
+                    continue # No reachability
+                
+                # GREEDY SELECTION:
+                # Filter valid interfaces for this dest, find the one with min usage count.
+                # If ties, the sort order (alphabetical) handles it, or we could randomize.
+                best_iface_id = min(valid_ifaces, key=lambda x: interface_usage_counts[x])
+                
+                # Assign
+                path_id = f"p_{host}_{best_iface_id}"
+                path_specific_reachability[path_id].append(dest)
+                
+                # Increment usage so next time we might pick a different one
+                interface_usage_counts[best_iface_id] += 1
+        
+        # Override the global map
+        final_reachability_map = path_specific_reachability
+        
+        print("Distribution Complete. Interface Usage Counts (Assignments):")
+        for iface_id, count in interface_usage_counts.items():
+            print(f"  {iface_id}: {count}")
+        print("--------------------------------------\n")
+    # -------------------------------------------------------
+
+    # 7. Build final scenario
     scenario = {
         "endhosts": endhosts,
         "egress_interfaces": [iface['id'] for iface in egress_interfaces],
         "destinations": destinations,
         "paths_per_endhost": {host: [f"p_{host}_{iface['id']}" for iface in egress_interfaces] for host in endhosts},
         "path_to_egress_mapping": {f"p_{host}_{iface['id']}": iface['id'] for host in endhosts for iface in egress_interfaces},
-        "egress_to_destination_reachability": egress_to_destination_reachability,
-        "endhost_uplinks": {host: 100 for host in endhosts},
+        "egress_to_destination_reachability": final_reachability_map,
+        "endhost_uplinks": {host: 10000 for host in endhosts},
         "egress_capacities": egress_capacities,
         "egress_costs": egress_dynamic_costs,
         "egress_base_costs": egress_base_costs,
@@ -231,39 +244,36 @@ def generate_traffic_scenario(
     return scenario
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a realistic traffic scenario from a graph and a traffic data CSV.")
+    parser = argparse.ArgumentParser(description="Generate a realistic traffic scenario.")
     parser.add_argument("graph_file", help="Path to the graph JSON file.")
     parser.add_argument("traffic_csv_file", help="Path to the traffic data CSV file.")
     parser.add_argument("-o", "--output_file", help="Path to the output JSON file.", default="traffic_scenario.json")
-    parser.add_argument("-t", "--traffic_increase_factor", type=float, default=1.0, help="Factor to scale the traffic loaded from the CSV.")
-    parser.add_argument("-c", "--cost_difference_factor", type=float, default=3.5, help="Cost difference factor for dynamic transit link costs.")
-    parser.add_argument("--prefer_peering", action="store_true", help="If set, do not use transit links for destinations reachable via peering.")
+    parser.add_argument("-t", "--traffic_increase_factor", type=float, default=1.0, help="Factor to scale traffic.")
+    parser.add_argument("-c", "--cost_difference_factor", type=float, default=3.5, help="Cost factor for dynamic transit.")
+    parser.add_argument("--prefer_peering", action="store_true", help="Prefer peering links over transit.")
     
-    # --- ADDED/MODIFIED PARAMETERS ---
-    parser.add_argument("--transit-base-cost", type=float, default=None, help="Override default base cost for all transit links.")
-    parser.add_argument("--peering-base-cost", type=float, default=None, help="Override default base cost for all peering links.")
-    parser.add_argument("--peering-variable-cost", type=float, default=None, help="Override default variable (per-Gbps) cost for all peering links.")
-    parser.add_argument("--use_worst_case_links", action="store_true", help="Set latency to be inversely proportional to capacity to create a worst-case scenario for latency-based routing.")
+    parser.add_argument("--transit-base-cost", type=float, default=None, help="Override base cost for transit.")
+    parser.add_argument("--peering-base-cost", type=float, default=None, help="Override base cost for peering.")
+    parser.add_argument("--peering-variable-cost", type=float, default=None, help="Override variable cost for peering.")
+    parser.add_argument("--use_worst_case_links", action="store_true", help="Set latency inversely proportional to capacity.")
+    
+    parser.add_argument("--single-path-per-dest", action="store_true", help="Force 1 path per host/dest, balancing globally to use all paths.")
 
     args = parser.parse_args()
 
     try:
         with open(args.graph_file, 'r') as f:
             graph_data = json.load(f)
-    except FileNotFoundError:
-        print(f"Error: Graph file '{args.graph_file}' not found.")
-        return
-    except json.JSONDecodeError:
-        print(f"Error: Could not decode JSON from '{args.graph_file}'.")
+    except Exception as e:
+        print(f"Error reading graph file: {e}")
         return
 
     try:
         traffic_df = pd.read_csv(args.traffic_csv_file)
-    except FileNotFoundError:
-        print(f"Error: Traffic CSV file '{args.traffic_csv_file}' not found.")
+    except Exception as e:
+        print(f"Error reading traffic CSV: {e}")
         return
 
-    # Generate the traffic scenario, passing the new arguments
     traffic_scenario = generate_traffic_scenario(
         graph_data,
         traffic_df,
@@ -273,17 +283,16 @@ def main():
         args.transit_base_cost,
         args.peering_base_cost,
         args.peering_variable_cost,
-        args.use_worst_case_links
+        args.use_worst_case_links,
+        args.single_path_per_dest
     )
 
-    # Write the output to a file
     try:
         with open(args.output_file, 'w') as f:
             json.dump(traffic_scenario, f, indent=4)
-        print(f"Success! Traffic scenario generated and saved to '{args.output_file}'")
+        print(f"Success! Saved to '{args.output_file}'")
     except IOError as e:
-        print(f"Error: Could not write to output file '{args.output_file}': {e}")
-
+        print(f"Error writing output: {e}")
 
 if __name__ == "__main__":
     main()

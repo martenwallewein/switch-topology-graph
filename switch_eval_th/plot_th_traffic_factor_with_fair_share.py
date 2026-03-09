@@ -76,7 +76,7 @@ def analyze_and_plot_congestion():
     # --- 1. Configuration: Define the scenario path ---
     # This now points to a single directory containing the result files.
     scenario = {
-        "path": "results/worst_case/with_prefer_peering/results",
+        "path": "results/best_case/with_prefer_peering/results",
     }
     output_plot_file = "congestion_spillover_comparison.pdf"
     
@@ -92,11 +92,6 @@ def analyze_and_plot_congestion():
             "color": "dodgerblue",
             "linestyle": "solid"
         },
-        "fair_share_latency_optimal_3": {
-            "label": "ECMP 3 Paths (With Prefer Peering)",
-            "color": "green",
-            "linestyle": "solid"
-        }
     }
 
     # --- 2. Process data for the scenario ---

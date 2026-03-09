@@ -18,8 +18,8 @@ def process_traffic_data_from_folder(results_dir):
     # This dictionary will hold the results for different analysis blocks
     results = {
         'latency_optimal': defaultdict(list),
-        'waterfilling_optimal_2': defaultdict(list),
-        'waterfilling_optimal_3': defaultdict(list)
+        'fair_share_latency_optimal': defaultdict(list),
+        'fair_share_latency_optimal_3': defaultdict(list)
     }
     
     # Regex handles integer and float numbers
@@ -40,7 +40,7 @@ def process_traffic_data_from_folder(results_dir):
                 for block_name in results.keys():
                     if block_name not in data:
                         # Silent info or debug print if needed
-                        # print(f"    - Info: '{block_name}' key not found in '{filename}'...")
+                        print(f"    - Info: '{block_name}' key not found in '{filename}'...")
                         continue
                     
                     analysis_data = data[block_name]
@@ -55,6 +55,7 @@ def process_traffic_data_from_folder(results_dir):
                     if total_sent_traffic > 0:
                         spillover_ratio = total_spillover / total_sent_traffic
                         results[block_name][traffic_factor].append(spillover_ratio)
+                        print(f"    - Processed '{filename}' for block '{block_name}', factor {traffic_factor}: Ratio={spillover_ratio:.4f}")
                     else:
                         results[block_name][traffic_factor].append(0.0)
 
@@ -85,7 +86,7 @@ def analyze_and_plot_congestion():
 
     # Configuration: Scenario path
     scenario = {
-        "path": "results/worst_case/no_prefer_peering/results",
+        "path": "results/best_case/with_prefer_peering/results",
     }
     output_plot_file = "congestion_spillover_comparison_compressed2.pdf"
     
@@ -97,16 +98,16 @@ def analyze_and_plot_congestion():
             "color": "red",
             "linestyle": "-"
         },
-        "waterfilling_optimal_2": {
-            "label": "WF 2 Paths",
+        "fair_share_latency_optimal": {
+            "label": "ECMP 2 Paths",
             "color": "dodgerblue",
             "linestyle": "-"
         },
-        "waterfilling_optimal_3": {
-            "label": "WF 3 Paths",
-            "color": "green",
-            "linestyle": "-"
-        }
+        #"fair_share_latency_optimal_3": {
+        #    "label": "ECMP 3 Paths",
+        #    "color": "green",
+        #    "linestyle": "-"
+        #}
     }
 
     # --- 2. Process data ---

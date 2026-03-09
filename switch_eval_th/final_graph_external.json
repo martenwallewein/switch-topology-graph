@@ -1,0 +1,745 @@
+{
+    "nodes": [
+        {
+            "id": "N1",
+            "label": "SWITCH Internal",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N2",
+            "label": "SWITCH Internal 21",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N3",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N4",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N5",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N6",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N7",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N8",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N9",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N10",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N11",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N12",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N13",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N14",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N15",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N16",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N17",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N18",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N19",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N20",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N21",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N22",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N23",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N24",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N25",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N26",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N27",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N28",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N29",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N30",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N31",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N32",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N33",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N34",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N35",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N36",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N37",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N38",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N39",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "N40",
+            "label": "SWITCH Internal 22",
+            "short_name": "",
+            "type": "internal"
+        },
+        {
+            "id": "g\u00e9ant",
+            "label": "G\u00c9ANT",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "colt",
+            "label": "Colt",
+            "type": "external",
+            "classification": "transit"
+        },
+        {
+            "id": "arelion",
+            "label": "Arelion",
+            "type": "external",
+            "classification": "transit"
+        },
+        {
+            "id": "cogent",
+            "label": "Cogent",
+            "type": "external",
+            "classification": "transit"
+        },
+        {
+            "id": "gtt",
+            "label": "GTT",
+            "type": "external",
+            "classification": "transit"
+        },
+        {
+            "id": "ams-ix",
+            "label": "AMS-IX",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "cixp",
+            "label": "CIXP",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "cernlight",
+            "label": "CERNLight",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "de-cix",
+            "label": "DE-CIX",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "equinix",
+            "label": "Equinix",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "swissix",
+            "label": "SwissIX",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "cern",
+            "label": "CERN",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "belw\u00fc",
+            "label": "BelW\u00fc",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "google",
+            "label": "Google",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "microsoft",
+            "label": "Microsoft",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "amazon",
+            "label": "Amazon",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "facebook",
+            "label": "Facebook",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "akamai",
+            "label": "Akamai",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "swisscom",
+            "label": "Swisscom",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "init7",
+            "label": "Init7",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "liberty global",
+            "label": "Liberty Global",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "interxion",
+            "label": "interxion",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "lumen",
+            "label": "lumen",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "level3",
+            "label": "level3",
+            "type": "external",
+            "classification": "peering"
+        },
+        {
+            "id": "tix",
+            "label": "tix",
+            "type": "external",
+            "classification": "peering"
+        }
+    ],
+    "edges": [
+        {
+            "id": "L1",
+            "from": "N1",
+            "to": "g\u00e9ant",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L3",
+            "from": "N1",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L4",
+            "from": "N1",
+            "to": "colt",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L5",
+            "from": "N1",
+            "to": "arelion",
+            "capacity": "100 Gb/s",
+            "location": "Equinix Zurich. Over Telia!!",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L6",
+            "from": "N1",
+            "to": "cogent",
+            "capacity": "10 Gb/s",
+            "location": "IWB Basel",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L7",
+            "from": "N1",
+            "to": "gtt",
+            "capacity": "100 Gb/s",
+            "location": "CERN Geneva",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L8",
+            "from": "N1",
+            "to": "gtt",
+            "capacity": "10 Gb/s",
+            "location": "Digital Realty; Interxion (before)",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L9",
+            "from": "N1",
+            "to": "ams-ix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L10",
+            "from": "N1",
+            "to": "cixp",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L11",
+            "from": "N1",
+            "to": "cernlight",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L12",
+            "from": "N1",
+            "to": "de-cix",
+            "capacity": "100 Gb/s",
+            "location": "homepage",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L13",
+            "from": "N1",
+            "to": "equinix",
+            "capacity": "10 Gb/s",
+            "location": "homepage",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L14",
+            "from": "N1",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Basel",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L15",
+            "from": "N1",
+            "to": "swissix",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L16",
+            "from": "N1",
+            "to": "cern",
+            "capacity": "400 Gb/s",
+            "location": "2x Geneva",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L18",
+            "from": "N1",
+            "to": "belw\u00fc",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L19",
+            "from": "N1",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L15"
+        },
+        {
+            "id": "L20",
+            "from": "N1",
+            "to": "google",
+            "capacity": "100 Gb/s",
+            "location": "Glattbrugg (Bandwidth over Interxion Glattburg)",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L125"
+        },
+        {
+            "id": "L21",
+            "from": "N1",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L125"
+        },
+        {
+            "id": "L22",
+            "from": "N1",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L15"
+        },
+        {
+            "id": "L23",
+            "from": "N1",
+            "to": "microsoft",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L9"
+        },
+        {
+            "id": "L24",
+            "from": "N1",
+            "to": "amazon",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L125"
+        },
+        {
+            "id": "L25",
+            "from": "N1",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L125"
+        },
+        {
+            "id": "L26",
+            "from": "N1",
+            "to": "facebook",
+            "capacity": "10 Gb/s",
+            "location": "Zurich and Glattbrugg",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L15"
+        },
+        {
+            "id": "L27",
+            "from": "N1",
+            "to": "akamai",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering",
+            "subtract_from": "L125"
+        },
+        {
+            "id": "L28",
+            "from": "N1",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L29",
+            "from": "N1",
+            "to": "swisscom",
+            "capacity": "20 Gb/s",
+            "location": "Geneva",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L30",
+            "from": "N1",
+            "to": "init7",
+            "capacity": "100 Gb/s",
+            "location": "N/A",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L31",
+            "from": "N1",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Zurich",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L32",
+            "from": "N1",
+            "to": "liberty global",
+            "capacity": "10 Gb/s",
+            "location": "Geneva",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L123",
+            "from": "N1",
+            "to": "cern",
+            "traffic_in": "3.46Gbps",
+            "traffic_out": "1.95Gbps",
+            "link_capacity": "400G",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L125",
+            "from": "N1",
+            "to": "interxion",
+            "traffic_in": "54.15Gbps",
+            "traffic_out": "24.3Gbps",
+            "link_capacity": "200G",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L129",
+            "from": "N1",
+            "to": "belw\u00fc",
+            "traffic_in": "490.76Mbps",
+            "traffic_out": "864.54Mbps",
+            "link_capacity": "100G",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L131",
+            "from": "N1",
+            "to": "de-cix",
+            "traffic_in": "25.61Gbps",
+            "traffic_out": "4.07Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L134",
+            "from": "N1",
+            "to": "cixp",
+            "traffic_in": "3.16Gbps",
+            "traffic_out": "2.34Gbps",
+            "link_capacity": "100G",
+            "edge_type": "external",
+            "link_type": "peering"
+        },
+        {
+            "id": "L135",
+            "from": "N1",
+            "to": "gtt",
+            "traffic_in": "12.63Kbps",
+            "traffic_out": "565.44Mbps",
+            "link_capacity": "10G",
+            "edge_type": "external",
+            "link_type": "transit"
+        },
+        {
+            "id": "L137",
+            "from": "N1",
+            "to": "cogent",
+            "traffic_in": "1.21Gbps",
+            "traffic_out": "630.37Mbps",
+            "link_capacity": "10G",
+            "edge_type": "external",
+            "link_type": "transit"
+        }
+    ]
+}
